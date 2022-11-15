@@ -13,10 +13,3 @@ void Led::switchOn(){
 void Led::switchOff(){
   digitalWrite(pin,LOW);
 };
-
-void Led::blink(int delayTime){
-    switchOn();
-    delay(delayTime);
-    switchOff();
-    delay(delayTime);
-}
