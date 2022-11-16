@@ -5,11 +5,10 @@
 #include "../devices/Photoresistor.h"
 
 SmartLighting::SmartLighting(const int ledPin, const int pirPin, const int photoresPin, const int lightThreshold, const int shutdownTime){
-  this->lightThreshold = lightThreshold;
   this->shutdownTime = shutdownTime;
   this->led = new Led(ledPin);   
   this->pir = new Pir(pirPin, 10);
-  this->photores = new Photoresistor(photoresPin, this->lightThreshold);
+  this->photores = new Photoresistor(photoresPin, lightThreshold);
 }
   
 void SmartLighting::init(const int period){
