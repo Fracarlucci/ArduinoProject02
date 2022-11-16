@@ -24,4 +24,5 @@ bool Pir::isDetected() {
     if (current != this->detected_status) {
         this->detected_status = current;
     }
+    return this->detected_status;
 }
