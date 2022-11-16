@@ -14,6 +14,7 @@
 class Photoresistor {
 
 public:
+  Photoresistor(const int photoresPin, const int lightThreshold);
   double readLuminosity();
   bool isLuminosityHigher();  
 };
