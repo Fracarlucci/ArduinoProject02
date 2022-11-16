@@ -13,7 +13,8 @@ private:
   Led* led;
   Pir* pir;
   Photoresistor* photores;
-
+  unsigned long int startTime;
+  unsigned long int elapsedTime;
   unsigned long int shutdownTime;
 
   enum { ON, OFF, SHUTDOWN} state;
