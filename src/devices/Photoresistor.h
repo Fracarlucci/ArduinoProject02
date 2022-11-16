@@ -17,7 +17,6 @@ class Photoresistor {
   private:
     int pin;
     double THl;
-
 };
 
 #endif  

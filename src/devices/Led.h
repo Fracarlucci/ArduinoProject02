@@ -3,12 +3,13 @@
 
 class Led { 
 	public:
-  	Led(int pin);
-  	void switchOn();
-  	void switchOff();
+  		Led(int pin);
+		void switchOn();
+		void switchOff();
 		void blink(int delayTime);   
+	
 	private:
-  	int pin;  
+  		int pin;  
 };
 
 #endif

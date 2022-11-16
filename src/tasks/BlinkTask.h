@@ -6,15 +6,15 @@
 
 class BlinkTask: public Task {
 
-  int pin;
-  Led* led;
-  enum { ON, OFF} state;
+  public:
+    BlinkTask(int pin);  
+    void init(int period);  
+    void tick();
 
-public:
-
-  BlinkTask(int pin);  
-  void init(int period);  
-  void tick();
+  private:
+    int pin;
+    Led* led;
+    enum { ON, OFF} state;
 };
 
 #endif

@@ -9,11 +9,12 @@
 
 class SmartLighting: public Task {
 
+private:
   Led* led;
   Pir* pir;
   Photoresistor* photores;
 
-  int shutdownTime;
+  unsigned long int shutdownTime;
 
   enum { ON, OFF, SHUTDOWN} state;
 
