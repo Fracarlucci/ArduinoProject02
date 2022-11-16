@@ -14,7 +14,6 @@ class SmartLighting: public Task {
   Photoresistor* photores;
 
   int shutdownTime;
-  int lightThreshold;
 
   enum { ON, OFF, SHUTDOWN} state;
 
