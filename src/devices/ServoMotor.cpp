@@ -2,7 +2,7 @@
 #include "Arduino.h"
 
 #define MAX_ANGLE 180
-#define POT_VALUE 1024
+#define POT_VALUE 1023
 
 ServoMotor::ServoMotor(const int pin) {
   this->pin = pin;
