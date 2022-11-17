@@ -48,7 +48,8 @@ void WaterLevelTask::tick() {
     break;
 
     case MANUAL:
-      if(millis() - this->elapsedTime >= this->PEA) {
+      const float waterLevel = this->waterStateWorker->getWaterLevelEveryMilliseconds(this->elapsedTime, this->PEA);
+      if(waterLevel != -1) {
         this->lcd->printText("Livello Acqua: ");
         this->lcd->printText("Apertura Valvola: ");
         this->elapsedTime = millis();

@@ -11,6 +11,13 @@ WaterState::WaterState(UltrasonicSensor* sensor, const float w1, const float w2)
 float WaterState::getWaterLevel() {
     return this->sensor->getDistance();
 }
+
+float WaterState::getWaterLevelEveryMilliseconds(const unsigned long int startTime, const unsigned long int period) {
+  if(millis() - startTime >= period) {
+    return this->getWaterLevel();
+  }
+  return -1;
+}
   
 bool WaterState::isNormal(){
   return (this->sensor->getDistance() < w1);
