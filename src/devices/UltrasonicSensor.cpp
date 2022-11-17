@@ -1,7 +1,7 @@
 #include "UltrasonicSensor.h"
 #include "Arduino.h"
 
-UltrasonicSensor::UltrasonicSensor(const unsigned short triggerPin, const unsigned short echoPin){
+UltrasonicSensor::UltrasonicSensor(const int triggerPin, const int echoPin){
   this->triggerPin = triggerPin;
   this->echoPin = echoPin;
   pinMode(this->triggerPin, OUTPUT);

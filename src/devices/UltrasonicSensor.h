@@ -3,11 +3,11 @@
 
 class UltrasonicSensor {
     
-    unsigned short triggerPin;
-    unsigned short echoPin;
+    int triggerPin;
+    int echoPin;
     
     public: 
-        UltrasonicSensor(const unsigned short triggerPin, const unsigned short echoPin);
+        UltrasonicSensor(const int triggerPin, const int echoPin);
         float getDistance();
 
 };

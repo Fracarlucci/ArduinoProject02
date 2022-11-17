@@ -4,19 +4,28 @@
 #include "Task.h"
 #include "BlinkTask.h"
 #include "../devices/Led.h"
-
-#define W1 341
-#define W2 682
+#include "../devices/LcdDisplay.h"
+#include "../model/WaterState.h"
 
 class WaterLevelTask: public Task{
 public:
-  WaterLevelTask(const int pinLedB, const int pinLedC, const int pinPotentiometer, const int pinLCD, const int pinSonar);
+  WaterLevelTask(const int pinLedB, const int pinLedC, const int pinPotentiometer, const int pinLCD, const int pinTrigger, const int pinEcho);
   void init(const int period, const int blinkPeriod);
   void tick();
 private:
   float currWaterLevel;
   Led* ledB;
   Led* ledC;
+  LcdDisplay* lcd;
+  WaterState* waterStateWorker;
+  Potentiometer* potentiometer;
+
+  const float W1 = 341;
+  const float W2 = 682;
+  const unsigned int PEA = 60000;
+
+  unsigned long int elapsedTime;
+
   //Lcd* lcd;
   BlinkTask* blinkTask;
   enum{NORMAL, PRE_ALARM, ALARM, MANUAL} state;
