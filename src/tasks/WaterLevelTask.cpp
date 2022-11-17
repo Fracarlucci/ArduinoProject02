@@ -15,7 +15,14 @@ void WaterLevelTask::init(const int period, const int blinkPeriod) {
 void WaterLevelTask::tick() {
   switch (state)
   {
-  case NORMAL:
+    case NORMAL:
+      if(waterState->isNormal()){
+        ledB->switchOn();
+        ledC->switchOff();
+        // sampling ogni PEN
+      }else{
+        state = PRE_ALARM;
+      }
     break;
 
     case PRE_ALARM:

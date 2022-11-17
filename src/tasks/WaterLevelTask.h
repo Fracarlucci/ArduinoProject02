@@ -4,6 +4,10 @@
 #include "Task.h"
 #include "BlinkTask.h"
 #include "../devices/Led.h"
+#include "../devices/LcdDisplay.h"
+#include "../devices/UltrasonicSensor.h"
+#include "../model/WaterState.h"
+
 
 #define W1 341
 #define W2 682
@@ -17,8 +21,10 @@ private:
   float currWaterLevel;
   Led* ledB;
   Led* ledC;
-  //Lcd* lcd;
+  LcdDisplay* lcd;
   BlinkTask* blinkTask;
+  UltrasonicSensor* sensor;
+  WaterState* waterState;
   enum{NORMAL, PRE_ALARM, ALARM, MANUAL} state;
 };
 
