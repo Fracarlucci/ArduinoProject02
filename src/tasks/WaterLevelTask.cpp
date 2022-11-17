@@ -2,12 +2,13 @@
 
 #include "../devices/Potentiometer.h"
 
-WaterLevelTask::WaterLevelTask(const int pin_potentiometer, const int pin_LCD, const int pin_sonar) {
-
+WaterLevelTask::WaterLevelTask(const int pinLedB, const int pinLedC, const int pinPotentiometer, const int pinLCD, const int pinSonar) {
+  blinkTask = new BlinkTask(pinLedC);
 }
 
-void WaterLevelTask::init(const int period) {
+void WaterLevelTask::init(const int period, const int blinkPeriod) {
   Task::init(period);
+  blinkTask->init(blinkPeriod);
   this->state = NORMAL;
 }
 
@@ -18,15 +19,26 @@ void WaterLevelTask::tick() {
     break;
 
     case PRE_ALARM:
-  break;
+      if(currWaterLevel < W1){
+        state = NORMAL;
+      }
+      else if(currWaterLevel > W2){
+        state = ALARM;
+      }
+      else {
+        blinkTask->tick();
+        //sampling sonar
+        //lcd->printText(currWaterLevel);
+      }
+    break;
 
     case ALARM:
-  break;
+    break;
 
     case MANUAL:
-  break;
+    break;
   
-  default:
+    default:
     break;
   }
 }
