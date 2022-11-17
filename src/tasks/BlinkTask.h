@@ -5,16 +5,15 @@
 #include "../devices/Led.h"
 
 class BlinkTask: public Task {
+public:
+  BlinkTask(int pin);  
+  void init(int period);  
+  void tick();
 
-  public:
-    BlinkTask(int pin);  
-    void init(int period);  
-    void tick();
-
-  private:
-    int pin;
-    Led* led;
-    enum { ON, OFF} state;
+private:
+  int pin;
+  Led* led;
+  enum { ON, OFF} state;
 };
 
 #endif

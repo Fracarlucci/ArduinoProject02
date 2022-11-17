@@ -2,12 +2,12 @@
 #define __POTENTIOMETER__
 
 class Potentiometer { 
-	public:
-  	Potentiometer(int pin);
-    int getValue();
+public:
+  Potentiometer(int pin);
+  int getValue();
 
-	private:
-  	int pin;
+private:
+  int pin;
 };
 
 #endif

@@ -8,7 +8,10 @@
 #include "../devices/Pir.h"
 
 class SmartLighting: public Task {
-
+public:
+  SmartLighting(const int ledPin, const int pirPin, const int photoresPin, const int shutdownTime, const int lightThreshold);  
+  void init(const int period);  
+  void tick();
 private:
   Led* led;
   Pir* pir;
@@ -18,12 +21,6 @@ private:
   unsigned long int shutdownTime;
 
   enum { ON, OFF, SHUTDOWN} state;
-
-public:
-
-  SmartLighting(const int ledPin, const int pirPin, const int photoresPin, const int shutdownTime, const int lightThreshold);  
-  void init(const int period);  
-  void tick();
 };
 
 #endif

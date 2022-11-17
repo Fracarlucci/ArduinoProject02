@@ -6,7 +6,6 @@
 #define MAX_TASKS 50
 
 class Scheduler {
-
 public:
   void init(int basePeriod);  
   virtual bool addTask(Task* task);  
