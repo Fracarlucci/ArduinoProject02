@@ -15,10 +15,10 @@ void BlinkTask::tick(){
     case OFF:
       led->switchOn();
       state = ON; 
-      break;
+    break;
     case ON:
       led->switchOff();
       state = OFF;
-      break;
+    break;
   }
 }
