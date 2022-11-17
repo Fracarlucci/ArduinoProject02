@@ -4,7 +4,6 @@
 class Pir { 
 	public:
   	Pir(int pin, int calibrating_time);
-    //manca il distruttore
     void calibrating();
     bool isDetected();
 
