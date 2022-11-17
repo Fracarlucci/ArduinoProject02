@@ -7,9 +7,13 @@ WaterState::WaterState(UltrasonicSensor* sensor, const float w1, const float w2)
   this-> w2 = w2;
   this->sensor = sensor;
 } 
+
+float WaterState::getWaterLevel() {
+    return this->sensor->getDistance();
+}
   
 bool WaterState::isNormal(){
-  return (sensor->getDistance() < w1);
+  return (this->sensor->getDistance() < w1);
 }
 
 bool WaterState::isPreAlarm(){

@@ -12,6 +12,7 @@ class WaterState {
 
     public: 
         WaterState(UltrasonicSensor* sensor, const float w1, const float w2);
+        float getWaterLevel();
         bool isNormal();
         bool isPreAlarm();
         bool isAlarm();
