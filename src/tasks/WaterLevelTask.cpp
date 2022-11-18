@@ -2,12 +2,14 @@
 
 #include "../devices/Potentiometer.h"
 #include "../devices/LcdDisplay.h"
+#include "../devices/Button.h"
 
-WaterLevelTask::WaterLevelTask(const int pinLedB, const int pinLedC, const int pinPotentiometer, const int pinLCD, const int pinTrigger, const int pinEcho) {
+WaterLevelTask::WaterLevelTask(const int pinLedB, const int pinLedC, const int pinPotentiometer, const int pinLCD, const int pinTrigger, const int pinEcho, const int buttonPin) {
   this->blinkTask = new BlinkTask(pinLedC);
   this->waterState = new WaterState(new UltrasonicSensor(pinTrigger, pinEcho), this->W1, this->W2);
   this->lcd = new LcdDisplay();
   this->potentiometer = new Potentiometer(pinPotentiometer);
+  this->button = new Button(buttonPin);
   this->elapsedTime = 0;
 }
 
@@ -55,9 +57,14 @@ void WaterLevelTask::tick() {
     case MANUAL:
       const float waterLevel = this->waterStateWorker->getWaterLevelEveryMilliseconds(this->elapsedTime, this->PEA);
       if(waterLevel != -1) {
-        this->lcd->printText("Livello Acqua: ");
-        this->lcd->printText("Apertura Valvola: ");
+        this->lcd->setCursorDisplay(0, 0);
+        this->lcd->printText("WL: " + String(waterLevel) + " Pot: " + String(this->servoMotor->readAngle()));
         this->elapsedTime = millis();
+      }
+      if(this->button->isPressed()) {
+        state = ALARM;
+      } else {
+        this->servoMotor->move(map(this->potentiometer->getValue(), 0, 1023, 0, 180));
       }
     break;
   
