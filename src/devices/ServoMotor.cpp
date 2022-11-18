@@ -17,6 +17,10 @@ void ServoMotor::move(int value) {
   motor.write(map(value, 0, POT_VALUE, 0, MAX_ANGLE));  
 }
 
+int ServoMotor::readAngle() {
+  return this->motor.read();
+}
+
 void ServoMotor::off() {
   motor.detach();
 }

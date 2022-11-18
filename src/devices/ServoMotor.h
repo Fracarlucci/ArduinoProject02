@@ -8,6 +8,7 @@ public:
   ServoMotor(const int pin);
   void on();
   void move(int value);
+  int readAngle();
   void off();
 
 private:
