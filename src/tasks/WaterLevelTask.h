@@ -5,6 +5,7 @@
 #include "BlinkTask.h"
 #include "../devices/Led.h"
 #include "../devices/LcdDisplay.h"
+#include "../devices/Potentiometer.h"
 #include "../model/WaterState.h"
 
 class WaterLevelTask: public Task{
@@ -24,7 +25,7 @@ private:
   const float W2 = 682;
   const unsigned long int PEA = 60000;
 
-  unsigned long int elapsedTime
+  unsigned long int elapsedTime;
   //Lcd* lcd;
   BlinkTask* blinkTask;
   UltrasonicSensor* sensor;

@@ -1,13 +1,14 @@
 #include "WaterLevelTask.h"
 
 #include "../devices/Potentiometer.h"
-#include "../devices/LcdDisplay.h";
+#include "../devices/LcdDisplay.h"
 
 WaterLevelTask::WaterLevelTask(const int pinLedB, const int pinLedC, const int pinPotentiometer, const int pinLCD, const int pinTrigger, const int pinEcho) {
-  blinkTask = new BlinkTask(pinLedC);
-  this->waterStateWorker = new WaterState(new UltrasonicSensor(pinTrigger, pinEcho), this->W1, this->W2);
+  this->blinkTask = new BlinkTask(pinLedC);
+  this->waterState = new WaterState(new UltrasonicSensor(pinTrigger, pinEcho), this->W1, this->W2);
   this->lcd = new LcdDisplay();
   this->potentiometer = new Potentiometer(pinPotentiometer);
+  this->elapsedTime = 0;
 }
 
 void WaterLevelTask::init(const int period, const int blinkPeriod) {
@@ -30,16 +31,20 @@ void WaterLevelTask::tick() {
     break;
 
     case PRE_ALARM:
-      if(currWaterLevel < W1){
+      if(waterState->isNormal()){
         state = NORMAL;
       }
-      else if(currWaterLevel > W2){
+      else if(waterState->isAlarm()){
         state = ALARM;
       }
       else {
         blinkTask->tick();
-        //sampling sonar
-        //lcd->printText(currWaterLevel);
+        lcd->setCursorDisplay(0, 0);
+        currWaterLevel = waterState->getWaterLevelEveryMilliseconds(elapsedTime, PEA);
+        if(currWaterLevel != -1){
+          lcd->printText("Water level: " + String(currWaterLevel));
+          elapsedTime = millis();
+        }     
       }
     break;
 
