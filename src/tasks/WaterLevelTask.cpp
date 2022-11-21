@@ -33,6 +33,8 @@ void WaterLevelTask::tick() {
         currWaterLevel = waterState->getWaterLevelEveryMilliseconds(elapsedTime, PEN);
         if(currWaterLevel != -1){
           lcd->printText("WL: " + String(currWaterLevel));
+          lcd->setCursorDisplay(0, 1);
+          lcd->printText("State: " + String(state));
           elapsedTime = millis();
         }
       }else{
