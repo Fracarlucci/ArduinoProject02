@@ -26,7 +26,12 @@ void WaterLevelTask::tick() {
       if(waterState->isNormal()){
         ledB->switchOn();
         ledC->switchOff();
-        // sampling ogni PEN
+        lcd->setCursorDisplay(0, 0);
+        currWaterLevel = waterState->getWaterLevelEveryMilliseconds(elapsedTime, PEn);
+        if(currWaterLevel != -1){
+          lcd->printText("WL: " + String(currWaterLevel));
+          elapsedTime = millis();
+        }
       }else{
         state = PRE_ALARM;
       }

@@ -28,6 +28,7 @@ private:
   const float W1 = 341;
   const float W2 = 682;
   const unsigned long int PEA = 60000;
+  const unsigned long int PEn = 60000;
 
   unsigned long int elapsedTime;
   //Lcd* lcd;
