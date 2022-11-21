@@ -13,10 +13,7 @@ float WaterState::getWaterLevel() {
 }
 
 float WaterState::getWaterLevelEveryMilliseconds(const unsigned long int startTime, const unsigned long int period) {
-  if(millis() - startTime >= period) {
-    return this->getWaterLevel();
-  }
-  return -1;
+  return (millis() - startTime >= period) ? this->getWaterLevel() : -1;
 }
   
 bool WaterState::isNormal(){

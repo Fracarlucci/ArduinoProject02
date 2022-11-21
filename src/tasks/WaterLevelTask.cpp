@@ -5,13 +5,13 @@
 #include "../devices/Button.h"
 
 WaterLevelTask::WaterLevelTask(const int pinLedB, const int pinLedC, const int pinPotentiometer,
-    const int pinLCD, const int pinTrigger, const int pinEcho, const int buttonPin, const int pinServoMotor) {
+  const int pinLCD, const int pinTrigger, const int pinEcho, const int buttonPin, const int pinServoMotor) {
   this->blinkTask = new BlinkTask(pinLedC);
   this->waterState = new WaterState(new UltrasonicSensor(pinTrigger, pinEcho), this->W1, this->W2);
   this->lcd = new LcdDisplay();
   this->potentiometer = new Potentiometer(pinPotentiometer);
   this->button = new Button(buttonPin);
-  this->elapsedTime = 0;
+  this->elapsedTime = millis();
   this->servoMotor = new ServoMotor(pinServoMotor);
 }
 
@@ -78,10 +78,10 @@ void WaterLevelTask::tick() {
     break;
 
     case MANUAL:
-      const float waterLevel = this->waterStateWorker->getWaterLevelEveryMilliseconds(this->elapsedTime, this->PEA);
-      if(waterLevel != -1) {
+      this->currWaterLevel = this->waterStateWorker->getWaterLevelEveryMilliseconds(this->elapsedTime, this->PEA);
+      if(this->currWaterLevel != -1) {
         this->lcd->setCursorDisplay(0, 0);
-        this->lcd->printText("WL: " + String(waterLevel) + " Pot: " + String(this->servoMotor->readAngle()));
+        this->lcd->printText("WL: " + String(this->currWaterLevel) + " Pot: " + String(this->servoMotor->readAngle()));
         this->elapsedTime = millis();
       }
       if(this->button->isPressed()) {
