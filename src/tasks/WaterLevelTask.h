@@ -7,12 +7,13 @@
 #include "../devices/LcdDisplay.h"
 #include "../devices/Potentiometer.h"
 #include "../devices/Button.h"
-#include "../devices/ServoMotor.h";
+#include "../devices/ServoMotor.h"
 #include "../model/WaterState.h"
 
 class WaterLevelTask: public Task{
 public:
-  WaterLevelTask(const int pinLedB, const int pinLedC, const int pinPotentiometer, const int pinLCD, const int pinTrigger, const int pinEcho, const int buttonPin);
+  WaterLevelTask(const int pinLedB, const int pinLedC, const int pinPotentiometer,
+    const int pinLCD, const int pinTrigger, const int pinEcho, const int buttonPin, const int pinServoMotor);
   void init(const int period, const int blinkPeriod);
   void tick();
 private:

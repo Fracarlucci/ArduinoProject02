@@ -4,19 +4,21 @@
 #include "../devices/LcdDisplay.h"
 #include "../devices/Button.h"
 
-WaterLevelTask::WaterLevelTask(const int pinLedB, const int pinLedC, const int pinPotentiometer, const int pinLCD, const int pinTrigger, const int pinEcho, const int buttonPin) {
+WaterLevelTask::WaterLevelTask(const int pinLedB, const int pinLedC, const int pinPotentiometer,
+    const int pinLCD, const int pinTrigger, const int pinEcho, const int buttonPin, const int pinServoMotor) {
   this->blinkTask = new BlinkTask(pinLedC);
   this->waterState = new WaterState(new UltrasonicSensor(pinTrigger, pinEcho), this->W1, this->W2);
   this->lcd = new LcdDisplay();
   this->potentiometer = new Potentiometer(pinPotentiometer);
   this->button = new Button(buttonPin);
   this->elapsedTime = 0;
+  this->servoMotor = new ServoMotor(pinServoMotor);
 }
 
 void WaterLevelTask::init(const int period, const int blinkPeriod) {
   Task::init(period);
   blinkTask->init(blinkPeriod);
-  motor->on();
+  servoMotor->on();
   this->state = NORMAL;
 }
 
@@ -61,7 +63,7 @@ void WaterLevelTask::tick() {
       //lcd->printText(currWaterLevel);
       ledB->switchOff();
       ledC->switchOn();
-      motor->move(currWaterLevel); // da rivedere il valore
+      servoMotor->move(currWaterLevel); // da rivedere il valore
 
 
       if(waterState->isNormal()){

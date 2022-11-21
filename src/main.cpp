@@ -10,6 +10,8 @@ void setup() {
   sched.init(100);
  
   Task* t0 = new SmartLighting(8, 9, A0, 3, 10);
+  //Task* t1 = new WaterLevelTask();
+ 
   t0->init(100);
   
   sched.addTask(t0);
