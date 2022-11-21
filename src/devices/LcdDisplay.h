@@ -8,7 +8,6 @@ class LcdDisplay {
     
     public:
         LcdDisplay();
-        void init();
         void setCursorDisplay(int x, int y);
         void printText(String text);
 
