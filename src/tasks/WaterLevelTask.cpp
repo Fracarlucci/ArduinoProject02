@@ -16,6 +16,7 @@ WaterLevelTask::WaterLevelTask(const int pinLedB, const int pinLedC, const int p
 void WaterLevelTask::init(const int period, const int blinkPeriod) {
   Task::init(period);
   blinkTask->init(blinkPeriod);
+  motor->on();
   this->state = NORMAL;
 }
 
@@ -56,7 +57,22 @@ void WaterLevelTask::tick() {
     break;
 
     case ALARM:
+      //sampling sonar
+      //lcd->printText(currWaterLevel);
+      ledB->switchOff();
+      ledC->switchOn();
+      motor->move(currWaterLevel); // da rivedere il valore
 
+
+      if(waterState->isNormal()){
+        state = NORMAL;
+      }
+      else if(waterState->isPreAlarm()){
+        state = ALARM;
+      }
+      else if(button->isPressed()) {
+        state = MANUAL;
+      }
     break;
 
     case MANUAL:
