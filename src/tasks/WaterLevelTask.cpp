@@ -45,12 +45,14 @@ void WaterLevelTask::tick() {
         state = NORMAL;
       }
       else if(waterState->isAlarm()){
+        ledB->switchOff();
+        ledC->switchOn();
         state = ALARM;
       }
       else {
         blinkTask->tick();
         lcd->setCursorDisplay(0, 0);
-        currWaterLevel = waterState->getWaterLevelEveryMilliseconds(elapsedTime, PEA);
+        currWaterLevel = waterState->getWaterLevelEveryMilliseconds(elapsedTime, PEP);
         if(currWaterLevel != -1){
           lcd->printText("Water level: " + String(currWaterLevel));
           elapsedTime = millis();
@@ -59,11 +61,12 @@ void WaterLevelTask::tick() {
     break;
 
     case ALARM:
-      //sampling sonar
-      //lcd->printText(currWaterLevel);
-      ledB->switchOff();
-      ledC->switchOn();
       servoMotor->move(currWaterLevel); // da rivedere il valore
+      currWaterLevel = waterState->getWaterLevelEveryMilliseconds(elapsedTime, PEA);
+      if(currWaterLevel != -1){
+        lcd->printText("Water Level: " + String(currWaterLevel));
+        elapsedTime = millis();
+      }
 
 
       if(waterState->isNormal()){

@@ -10,6 +10,10 @@
 #include "../devices/ServoMotor.h"
 #include "../model/WaterState.h"
 
+#define PEN 60000;
+#define PEP 60000;
+#define PEA 60000;
+
 class WaterLevelTask: public Task{
 public:
   WaterLevelTask(const int pinLedB, const int pinLedC, const int pinPotentiometer,
@@ -28,12 +32,9 @@ private:
 
   const float W1 = 341;
   const float W2 = 682;
-  const unsigned long int PEA = 60000;
-  const unsigned long int PEn = 60000;
 
   unsigned long int elapsedTime;
 
-  //Lcd* lcd;
   BlinkTask* blinkTask;
   UltrasonicSensor* sensor;
   WaterState* waterState;
