@@ -30,7 +30,7 @@ void WaterLevelTask::tick() {
         ledB->switchOn();
         ledC->switchOff();
         lcd->setCursorDisplay(0, 0);
-        currWaterLevel = waterState->getWaterLevelEveryMilliseconds(elapsedTime, PEn);
+        currWaterLevel = waterState->getWaterLevelEveryMilliseconds(elapsedTime, PEN);
         if(currWaterLevel != -1){
           lcd->printText("WL: " + String(currWaterLevel));
           elapsedTime = millis();
@@ -81,7 +81,7 @@ void WaterLevelTask::tick() {
     break;
 
     case MANUAL:
-      this->currWaterLevel = this->waterStateWorker->getWaterLevelEveryMilliseconds(this->elapsedTime, this->PEA);
+      this->currWaterLevel = this->waterStateWorker->getWaterLevelEveryMilliseconds(this->elapsedTime, PEA);
       if(this->currWaterLevel != -1) {
         this->lcd->setCursorDisplay(0, 0);
         this->lcd->printText("WL: " + String(this->currWaterLevel) + " Pot: " + String(this->servoMotor->readAngle()));

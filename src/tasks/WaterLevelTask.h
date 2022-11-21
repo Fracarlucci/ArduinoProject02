@@ -10,9 +10,9 @@
 #include "../devices/ServoMotor.h"
 #include "../model/WaterState.h"
 
-#define PEN 60000;
-#define PEP 60000;
-#define PEA 60000;
+#define PEN 60000
+#define PEP 60000
+#define PEA 60000
 
 class WaterLevelTask: public Task{
 public:
