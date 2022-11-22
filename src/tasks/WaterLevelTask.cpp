@@ -7,6 +7,8 @@
 WaterLevelTask::WaterLevelTask(const int pinLedB, const int pinLedC, const int pinPotentiometer,
   const int pinLCD, const int pinTrigger, const int pinEcho, const int buttonPin, const int pinServoMotor) {
   this->blinkTask = new BlinkTask(pinLedC);
+  this->ledB = new Led(pinLedB);
+  this->ledC = new Led(pinLedC);
   this->waterState = new WaterState(new UltrasonicSensor(pinTrigger, pinEcho), this->W1, this->W2);
   this->lcd = new LcdDisplay();
   this->potentiometer = new Potentiometer(pinPotentiometer);
@@ -92,7 +94,7 @@ void WaterLevelTask::tick() {
       if(this->button->isPressed()) {
         state = ALARM;
       } else {
-        this->servoMotor->move(map(this->potentiometer->getValue(), 0, 1023, 0, 180));
+        this->servoMotor->move(this->potentiometer->getValue());
       }
     break;
   

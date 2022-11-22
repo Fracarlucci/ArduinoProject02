@@ -17,13 +17,13 @@ float WaterState::getWaterLevelEveryMilliseconds(const unsigned long int startTi
 }
   
 bool WaterState::isNormal(){
-  return (this->sensor->getDistance() < w1);
+  return (this->sensor->getDistance() >= w1);
 }
 
 bool WaterState::isPreAlarm(){
-  return (this->sensor->getDistance() > w1 && this->sensor->getDistance() < w2);
+  return (this->sensor->getDistance() < w1 && this->sensor->getDistance() > w2);
 }
 
 bool WaterState::isAlarm(){
-  return (this->sensor->getDistance() > w2);
+  return (this->sensor->getDistance() <= w2);
 }
