@@ -19,7 +19,7 @@ WaterLevelTask::WaterLevelTask(const int pinLedB, const int pinLedC, const int p
 
 void WaterLevelTask::init(const int period, const int blinkPeriod) {
   Task::init(period);
-  blinkTask->init(blinkPeriod);
+  //blinkTask->init(blinkPeriod);
   servoMotor->on();
   this->state = NORMAL;
 }
@@ -28,7 +28,11 @@ void WaterLevelTask::tick() {
   switch (state)
   {
     case NORMAL:
-      if(waterState->isNormal()){
+      Serial.println("NORMAL");
+      Serial.print(state);
+      if(waterState->isPreAlarm()){
+        state = PRE_ALARM;
+      }else{
         ledB->switchOn();
         ledC->switchOff();
         lcd->setCursorDisplay(0, 0);
@@ -39,12 +43,11 @@ void WaterLevelTask::tick() {
           lcd->printText("State: " + String(state));
           elapsedTime = millis();
         }
-      }else{
-        state = PRE_ALARM;
       }
     break;
 
     case PRE_ALARM:
+      Serial.println("PRE_ALARM");
       if(waterState->isNormal()){
         state = NORMAL;
       }
@@ -54,7 +57,7 @@ void WaterLevelTask::tick() {
         state = ALARM;
       }
       else {
-        blinkTask->tick();
+        //blinkTask->tick();
         lcd->setCursorDisplay(0, 0);
         currWaterLevel = waterState->getWaterLevelEveryMilliseconds(elapsedTime, PEP);
         if(currWaterLevel != -1){
@@ -98,7 +101,7 @@ void WaterLevelTask::tick() {
       }
     break;
   
-    default:
-    break;
+   /* default:
+    break;*/
   }
 }

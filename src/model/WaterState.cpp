@@ -17,10 +17,12 @@ float WaterState::getWaterLevelEveryMilliseconds(const unsigned long int startTi
 }
   
 bool WaterState::isNormal(){
+  Serial.println(this->sensor->getDistance());
   return (this->sensor->getDistance() >= w1);
 }
 
 bool WaterState::isPreAlarm(){
+  Serial.println(this->sensor->getDistance());
   return (this->sensor->getDistance() < w1 && this->sensor->getDistance() > w2);
 }
 

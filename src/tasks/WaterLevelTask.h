@@ -30,15 +30,16 @@ private:
   Button* button;
   ServoMotor* servoMotor;
 
-  const float W1 = 341;
-  const float W2 = 682;
+  const float W1 = 150;
+  const float W2 = 30;
 
   unsigned long int elapsedTime;
 
   BlinkTask* blinkTask;
   UltrasonicSensor* sensor;
   WaterState* waterState;
-  enum{NORMAL, PRE_ALARM, ALARM, MANUAL} state;
+  enum State{NORMAL, PRE_ALARM, ALARM, MANUAL};
+  State state;
 };
 
 #endif

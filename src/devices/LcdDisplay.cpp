@@ -13,3 +13,7 @@ void LcdDisplay::setCursorDisplay(int x, int y) {
     lcd.setCursor(x, y);
 }
 
+void LcdDisplay::clearDisplay() {
+    lcd.clear();
+}
+
