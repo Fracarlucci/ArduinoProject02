@@ -19,12 +19,12 @@ void WaterTask2::init(int period) {
 }
 
 void WaterTask2::tick() {
-//lcd->clearDisplay();
-lcd->setCursorDisplay(0, 0);
-lcd->printText("Water level: " + String(sensor->getDistance()));
-switch (state)
-{
-	case NORMAL:
+	//lcd->clearDisplay();
+	lcd->setCursorDisplay(0, 0);
+	lcd->printText("Water level: " + String(sensor->getDistance()));
+	switch (state)
+	{
+		case NORMAL:
 			Serial.println("NORMAL");
 			if(sensor->getDistance() < 150){
 					state = PRE_ALARM;
@@ -36,9 +36,9 @@ switch (state)
 						servoMotor->move(50);
 					}*/
 			}
-	break;
+		break;
 
-	case PRE_ALARM:
+		case PRE_ALARM:
 			Serial.println("PRE_ALARM");
 			if(sensor->getDistance() >= 150){
 					state = NORMAL;
@@ -51,9 +51,9 @@ switch (state)
 					blinkTask->tick();
 					//ledC->switchOn();
 			}
-	break;
+		break;
 
-	case ALARM:
+		case ALARM:
 			Serial.println("ALARM");
 			if(sensor->getDistance() > 10){
 				state = PRE_ALARM;
@@ -65,6 +65,6 @@ switch (state)
 					servoMotor->move(100);
 				}*/
 			}
-	break;
+		break;
 	}
 }

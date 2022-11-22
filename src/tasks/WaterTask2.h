@@ -25,7 +25,6 @@ class WaterTask2: public Task {
 
 	BlinkTask* blinkTask;
 
-
 	enum {NORMAL, PRE_ALARM, ALARM, MANUAL} state;
 };
 
