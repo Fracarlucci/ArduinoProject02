@@ -97,7 +97,7 @@ void WaterLevelTask::tick() {
       if(this->button->isPressed()) {
         state = ALARM;
       } else {
-        this->servoMotor->move(this->potentiometer->getValue());
+        this->servoMotor->move(map(this->potentiometer->getValue(), 0, 1023, 0, 180));
       }
     break;
   

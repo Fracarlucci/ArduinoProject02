@@ -1,19 +1,19 @@
 #ifndef __SERVOMOTOR__
 #define __SERVOMOTOR__
 
-#include <Adafruit_TiCoServo.h>
+#include "ServoTimer2.h"
 
 class ServoMotor {
 public:
   ServoMotor(const int pin);
   void on();
-  void move(int value);
+  void move(int angle);
   int readAngle();
   void off();
 
 private:
   int pin;
-  Adafruit_TiCoServo motor;
+  ServoTimer2 motor;
 };
 
 #endif
