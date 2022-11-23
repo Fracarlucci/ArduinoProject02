@@ -1,7 +1,7 @@
 #ifndef __SERVOMOTOR__
 #define __SERVOMOTOR__
 
-#include "Servo.h"
+#include <Adafruit_TiCoServo.h>
 
 class ServoMotor {
 public:
@@ -13,7 +13,7 @@ public:
 
 private:
   int pin;
-  Servo motor;
+  Adafruit_TiCoServo motor;
 };
 
 #endif

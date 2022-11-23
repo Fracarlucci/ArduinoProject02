@@ -21,7 +21,7 @@ class WaterTask2: public Task {
 	Led* ledC;
 	UltrasonicSensor* sensor;
 	LcdDisplay* lcd;
-	Servo* servoMotor;
+	ServoMotor* servoMotor;
 
 	BlinkTask* blinkTask;
 
