@@ -73,8 +73,7 @@ The pulse width timing is accurate to within 1%
 #define ServoTimer2_h
 
 #include <inttypes.h>
-//typedef uint8_t boolean;
-//typedef uint8_t byte;
+typedef uint8_t byte;
 
 // #define MIN_PULSE_WIDTH       750        // the shortest pulse sent to a servo  
 
@@ -122,7 +121,7 @@ class ServoTimer2
     void detach();
     void write(int);         // store the pulse width in microseconds (between MIN_PULSE_WIDTH and MAX_PULSE_WIDTH)for this channel
     int read(); 			 // returns current pulse width in microseconds for this servo
-	boolean attached();      // return true if this servo is attached 
+	bool attached();      // return true if this servo is attached 
  private:
 	 uint8_t chanIndex;      // index into the channel data for this servo
 
@@ -142,7 +141,7 @@ class ServoArrayT2
     void detach(int);        // detach the servo on the given channel
 	void write(int,int);     // store the pulse width in microseconds (between MIN_PULSE_WIDTH and MAX_PULSE_WIDTH)for the given channel
     int read(int); 			 // returns current pulse width in microseconds for the given channel
-	boolean attached(int);   // return true if the servo on the given channel is attached 
+	bool attached(int);   // return true if the servo on the given channel is attached 
  private:
 	 uint8_t chanIndex;      // index into the channel data for this servo
 
