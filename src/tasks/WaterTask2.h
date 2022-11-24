@@ -10,6 +10,9 @@
 #include "../devices/ServoMotor.h"
 //#include "blinkTask.h"
 
+#define W1 100
+#define W2 50
+#define WMAX 10
 typedef enum {NORMAL, PRE_ALARM, ALARM, MANUAL} State;
 
 class WaterTask2: public Task {

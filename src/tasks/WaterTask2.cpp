@@ -31,7 +31,7 @@ void WaterTask2::tick() {
 	{
 		case NORMAL:
 			Serial.println("NORMAL");
-			if(currDistance < 100){
+			if(currDistance < W1){
 					state = PRE_ALARM;
 			}
 			else{
@@ -46,10 +46,10 @@ void WaterTask2::tick() {
 
 		case PRE_ALARM:
 			Serial.println("PRE_ALARM");
-			if(currDistance >= 100){
+			if(currDistance >= W1){
 					state = NORMAL;
 			}
-			else if(currDistance <= 30){
+			else if(currDistance <= W2){
 					state = ALARM;
 			}
 			else {
@@ -61,16 +61,18 @@ void WaterTask2::tick() {
 
 		case ALARM:
 			Serial.println("ALARM");
-			if(currDistance > 30){
+			if(currDistance > W2){
 				state = PRE_ALARM;
 			}
 			else {
 				ledB->switchOff();
 				ledC->switchOn();
-				if(servoMotor->readAngle() != map((long)currDistance, 30, 0, 544, 2400)){
-					servoMotor->move(map((long)currDistance, 30, 0, 0, 180));
-					//delay(15);
+				if(servoMotor->readAngle() != map((long)currDistance, W2, WMAX, 544, 2400)){
+					servoMotor->move(map((long)currDistance, W2, WMAX, 0, 180));
+					delay(15);
 				}
+				lcd->setCursorDisplay(0,1);
+				lcd->printText("Valve angle: " + String(map(servoMotor->readAngle(), 544, 2400, 0, 180)));
 			}
 		break;
 	}
