@@ -30,8 +30,8 @@ private:
   Button* button;
   ServoMotor* servoMotor;
 
-  const float W1 = 150;
-  const float W2 = 30;
+  /*const float W1 = 150;
+  const float W2 = 30;*/
 
   unsigned long int elapsedTime;
 

@@ -12,7 +12,6 @@ public:
   BlinkTask(int pin);  
   void init(int period);  
   void tick();
-  bool updateAndCheckTime(int period);
 
 private:
   int pin;

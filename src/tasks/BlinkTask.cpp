@@ -11,24 +11,16 @@ void BlinkTask::init(int period){
 }
   
 void BlinkTask::tick(){
-  switch (ledState){
-    case OFF:
-      led->switchOn();
-      ledState = ON; 
-    break;
-    case ON:
-      led->switchOff();
-      ledState = OFF;
-    break;
-  }
-}
-
-bool BlinkTask::updateAndCheckTime(int basePeriod){
-  timeElapsed += basePeriod;
-  if (timeElapsed >= myPeriod && state == PRE_ALARM){
-    timeElapsed = 0;
-    return true;
-  } else {
-    return false; 
+  if(state == PRE_ALARM){
+    switch (ledState){
+      case OFF:
+        led->switchOn();
+        ledState = ON; 
+      break;
+      case ON:
+        led->switchOff();
+        ledState = OFF;
+      break;
+    }
   }
 }
