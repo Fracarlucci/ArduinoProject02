@@ -14,8 +14,8 @@ void setup() {
  
   //Task* t0 = new SmartLighting(8, 9, A0, 3, 10);
   WaterTask2* t1 = new WaterTask2(8, 11, 2, 3, 9);
-  BlinkTask* blinking = new BlinkTask(11);
   LcdTask* lcdPrinting = new LcdTask();
+  Task* blinking = new BlinkTask(11);
  
   //t0->init(100);
   t1->init(100);

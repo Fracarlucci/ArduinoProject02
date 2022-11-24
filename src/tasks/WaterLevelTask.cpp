@@ -100,8 +100,5 @@ void WaterLevelTask::tick() {
         this->servoMotor->move(map(this->potentiometer->getValue(), 0, 1023, 0, 180));
       }
     break;
-  
-   default:
-    break;
   }
 }*/
