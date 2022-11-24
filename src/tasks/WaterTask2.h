@@ -17,6 +17,7 @@ class WaterTask2: public Task {
 	void tick();
 
 	private:
+	float currDistance;
 	Led* ledB;
 	Led* ledC;
 	UltrasonicSensor* sensor;

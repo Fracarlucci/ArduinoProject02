@@ -6,13 +6,13 @@ WaterTask2::WaterTask2(int pinLedB, int pinLedC, int pinTrigger, int pinEcho, in
   this->sensor = new UltrasonicSensor(pinTrigger, pinEcho);
 	this->lcd = new LcdDisplay();
 	this->servoMotor = new ServoMotor(pinServoMotor);
-
+	this->currDistance = 0;
 	this->blinkTask = new BlinkTask(pinLedC);
 }
 
 void WaterTask2::init(int period) {
   Task::init(period);
-	//servoMotor->on();
+	servoMotor->on();
   this->state = NORMAL;
 
 	blinkTask->init(500);
@@ -20,30 +20,34 @@ void WaterTask2::init(int period) {
 
 void WaterTask2::tick() {
 	//lcd->clearDisplay();
+	delay(15);
+	currDistance = sensor->getDistance();
 	lcd->setCursorDisplay(0, 0);
-	lcd->printText("Water level: " + String(sensor->getDistance()));
+	lcd->printText("Water level: " + String(currDistance));
+
 	switch (state)
 	{
 		case NORMAL:
 			Serial.println("NORMAL");
-			if(sensor->getDistance() < 150){
+			if(currDistance < 100){
 					state = PRE_ALARM;
 			}
 			else{
 					ledB->switchOn();
 					ledC->switchOff();
-					/*if(servoMotor->readAngle() != 50){
-						servoMotor->move(50);
-					}*/
+					if(servoMotor->readAngle() != 544){
+						servoMotor->move(0);
+						delay(15);
+					}
 			}
 		break;
 
 		case PRE_ALARM:
 			Serial.println("PRE_ALARM");
-			if(sensor->getDistance() >= 150){
+			if(currDistance >= 100){
 					state = NORMAL;
 			}
-			else if(sensor->getDistance() <= 10){
+			else if(currDistance <= 30){
 					state = ALARM;
 			}
 			else {
@@ -55,15 +59,16 @@ void WaterTask2::tick() {
 
 		case ALARM:
 			Serial.println("ALARM");
-			if(sensor->getDistance() > 10){
+			if(currDistance > 30){
 				state = PRE_ALARM;
 			}
 			else {
 				ledB->switchOff();
 				ledC->switchOn();
-				/*if(servoMotor->readAngle() != 100){
-					servoMotor->move(100);
-				}*/
+				if(servoMotor->readAngle() != map((long)currDistance, 30, 0, 544, 2400)){
+					servoMotor->move(map((long)currDistance, 30, 0, 0, 180));
+					delay(15);
+				}
 			}
 		break;
 	}
