@@ -10,6 +10,8 @@
 #include "../devices/ServoMotor.h"
 #include "blinkTask.h"
 
+typedef enum {NORMAL, PRE_ALARM, ALARM, MANUAL} State;
+
 class WaterTask2: public Task {
 	public:
 	WaterTask2(int pinLedB, int pinLedC, int pinTrigger, int pinEcho, int pinServoMotor);
@@ -25,8 +27,6 @@ class WaterTask2: public Task {
 	ServoMotor* servoMotor;
 
 	BlinkTask* blinkTask;
-
-	enum {NORMAL, PRE_ALARM, ALARM, MANUAL} state;
 };
 
 #endif
