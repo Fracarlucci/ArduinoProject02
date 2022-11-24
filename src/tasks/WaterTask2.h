@@ -8,7 +8,7 @@
 #include "../devices/UltrasonicSensor.h"
 #include "../devices/LcdDisplay.h"
 #include "../devices/ServoMotor.h"
-#include "blinkTask.h"
+//#include "blinkTask.h"
 
 typedef enum {NORMAL, PRE_ALARM, ALARM, MANUAL} State;
 
@@ -26,7 +26,7 @@ class WaterTask2: public Task {
 	LcdDisplay* lcd;
 	ServoMotor* servoMotor;
 
-	BlinkTask* blinkTask;
+	//BlinkTask* blinkTask;
 };
 
 #endif

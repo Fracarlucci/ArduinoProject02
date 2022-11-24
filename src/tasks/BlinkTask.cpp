@@ -7,18 +7,28 @@ BlinkTask::BlinkTask(int pin){
 void BlinkTask::init(int period){
   Task::init(period);
   led = new Led(pin); 
-  state = OFF;    
+  ledState = OFF;    
 }
   
 void BlinkTask::tick(){
-  switch (state){
+  switch (ledState){
     case OFF:
       led->switchOn();
-      state = ON; 
+      ledState = ON; 
     break;
     case ON:
       led->switchOff();
-      state = OFF;
+      ledState = OFF;
     break;
+  }
+}
+
+bool BlinkTask::updateAndCheckTime(int basePeriod){
+  timeElapsed += basePeriod;
+  if (timeElapsed >= myPeriod && state == PRE_ALARM){
+    timeElapsed = 0;
+    return true;
+  } else {
+    return false; 
   }
 }

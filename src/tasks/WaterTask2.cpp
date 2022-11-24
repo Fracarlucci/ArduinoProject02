@@ -9,7 +9,7 @@ WaterTask2::WaterTask2(int pinLedB, int pinLedC, int pinTrigger, int pinEcho, in
 	this->lcd = new LcdDisplay();
 	this->servoMotor = new ServoMotor(pinServoMotor);
 	this->currDistance = 0;
-	this->blinkTask = new BlinkTask(pinLedC);
+	//this->blinkTask = new BlinkTask(pinLedC);
 }
 
 void WaterTask2::init(int period) {
@@ -17,7 +17,7 @@ void WaterTask2::init(int period) {
 	servoMotor->on();
   state = NORMAL;
 
-	blinkTask->init(500);
+	//blinkTask->init(500);
 }
 
 void WaterTask2::tick() {
@@ -54,7 +54,7 @@ void WaterTask2::tick() {
 			}
 			else {
 					ledB->switchOff();
-					blinkTask->tick();
+					//blinkTask->tick();
 					//ledC->switchOn();
 			}
 		break;
