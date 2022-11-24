@@ -1,5 +1,7 @@
 #include "WaterTask2.h"
 
+State state;
+
 WaterTask2::WaterTask2(int pinLedB, int pinLedC, int pinTrigger, int pinEcho, int pinServoMotor) {
   this->ledB = new Led(pinLedB);
   this->ledC = new Led(pinLedC);
@@ -13,7 +15,7 @@ WaterTask2::WaterTask2(int pinLedB, int pinLedC, int pinTrigger, int pinEcho, in
 void WaterTask2::init(int period) {
   Task::init(period);
 	servoMotor->on();
-  this->state = NORMAL;
+  state = NORMAL;
 
 	blinkTask->init(500);
 }
@@ -35,10 +37,10 @@ void WaterTask2::tick() {
 			else{
 					ledB->switchOn();
 					ledC->switchOff();
-					if(servoMotor->readAngle() != 544){
+					//if(servoMotor->readAngle() != 544){
 						servoMotor->move(0);
-						delay(15);
-					}
+					//	delay(15);
+					//}
 			}
 		break;
 
