@@ -21,11 +21,8 @@ void WaterTask2::init(int period) {
 }
 
 void WaterTask2::tick() {
-	//lcd->clearDisplay();
 	delay(15);
 	currDistance = sensor->getDistance();
-	lcd->setCursorDisplay(0, 0);
-	lcd->printText("Water level: " + String(currDistance));
 
 	switch (state)
 	{
@@ -71,8 +68,8 @@ void WaterTask2::tick() {
 					servoMotor->move(map((long)currDistance, W2, WMAX, 0, 180));
 					delay(15);
 				}
-				lcd->setCursorDisplay(0,1);
-				lcd->printText("Valve angle: " + String(map(servoMotor->readAngle(), 544, 2400, 0, 180)));
+				//lcd->setCursorDisplay(0,1);
+				//lcd->printText("Valve angle: " + String(map(servoMotor->readAngle(), 544, 2400, 0, 180)));
 			}
 		break;
 	}
