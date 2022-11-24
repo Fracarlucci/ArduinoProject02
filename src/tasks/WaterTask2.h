@@ -10,6 +10,10 @@
 #include "../devices/ServoMotor.h"
 #include "blinkTask.h"
 
+#define W1 100
+#define W2 50
+#define WMAX 10
+
 class WaterTask2: public Task {
 	public:
 	WaterTask2(int pinLedB, int pinLedC, int pinTrigger, int pinEcho, int pinServoMotor);
