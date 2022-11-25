@@ -3,13 +3,9 @@
 #include "scheduler/Scheduler.h"
 #include "tasks/SmartLighting.h"
 #include "tasks/WaterTask2.h"
-<<<<<<< HEAD
 #include "model/WaterState.h"
-
-=======
 #include "tasks/BlinkTask.h"
 #include "tasks/LcdTask.h"
->>>>>>> 13376c7b0447baddce2105568d2f6822e0096e43
 
 Scheduler sched;
 
