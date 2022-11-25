@@ -1,32 +1,28 @@
 #include "WaterTask2.h"
 
+int valveAngle;
 State state;
 float currDistance = 0;
 
-WaterTask2::WaterTask2(int pinLedB, int pinLedC, int pinTrigger, int pinEcho, int pinServoMotor) {
+WaterTask2::WaterTask2(int pinLedB, int pinLedC, int pinTrigger, int pinEcho,
+	int pinServoMotor, int pinButton, int pinPotentiometer) {
   this->ledB = new Led(pinLedB);
   this->ledC = new Led(pinLedC);
   this->sensor = new UltrasonicSensor(pinTrigger, pinEcho);
-	this->lcd = new LcdDisplay();
 	this->servoMotor = new ServoMotor(pinServoMotor);
-	this->currDistance = 0;
-	this->blinkTask = new BlinkTask(pinLedC);
+	this->button = new Button(pinButton);
+	currDistance = 0;
 }
 
 void WaterTask2::init(int period) {
   Task::init(period);
 	servoMotor->on();
-  	state = NORMAL;
-
-	blinkTask->init(500);
+  state = NORMAL;
 }
 
 void WaterTask2::tick() {
-	//lcd->clearDisplay();
 	delay(15);
-	//currDistance = sensor->getDistance();
-	lcd->setCursorDisplay(0, 0);
-	lcd->printText("Water level: " + String(currDistance));
+	currDistance = sensor->getDistance();
 
 	switch (state)
 	{
@@ -39,10 +35,7 @@ void WaterTask2::tick() {
 					waterState->setPeriod(PEN);
 					ledB->switchOn();
 					ledC->switchOff();
-					//if(servoMotor->readAngle() != 544){
-						servoMotor->move(0);
-					//	delay(15);
-					//}
+					servoMotor->move(0);
 			}
 		break;
 
@@ -57,8 +50,6 @@ void WaterTask2::tick() {
 			else {
 					waterState->setPeriod(PEP);
 					ledB->switchOff();
-					blinkTask->tick();
-					//ledC->switchOn();
 			}
 		break;
 
@@ -67,16 +58,30 @@ void WaterTask2::tick() {
 			if(currDistance > W2){
 				state = PRE_ALARM;
 			}
+			else if(button->isPressed()){
+				state = MANUAL;
+			}
 			else {
 				waterState->setPeriod(PEA);
 				ledB->switchOff();
 				ledC->switchOn();
-				if(servoMotor->readAngle() != map((long)currDistance, W2, WMAX, 544, 2400)){
-					servoMotor->move(map((long)currDistance, W2, WMAX, 0, 180));
-					delay(15);
+				if(currDistance > WMAX) {
+					valveAngle = map((long)currDistance, W2, WMAX, 0, 180);
+					if(servoMotor->readAngle() != map((long)currDistance, W2, WMAX, 0, 180)){
+						servoMotor->move(map((long)currDistance, W2, WMAX, 0, 180));
 				}
-				lcd->setCursorDisplay(0,1);
-				lcd->printText("Valve angle: " + String(map(servoMotor->readAngle(), 544, 2400, 0, 180)));
+				}
+			}
+		break;
+
+		case MANUAL:
+			Serial.println("MANUAL");
+			if(button->isPressed()){
+				state = ALARM;
+			}
+			else {
+				valveAngle = map(val, 0, 1023, 0, 180);
+				servoMotor->move(map(analogRead(A0), 0, 1023, 0, 180));
 			}
 		break;
 	}

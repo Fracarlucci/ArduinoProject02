@@ -7,18 +7,20 @@ BlinkTask::BlinkTask(int pin){
 void BlinkTask::init(int period){
   Task::init(period);
   led = new Led(pin); 
-  state = OFF;    
+  ledState = OFF;    
 }
   
 void BlinkTask::tick(){
-  switch (state){
-    case OFF:
-      led->switchOn();
-      state = ON; 
-    break;
-    case ON:
-      led->switchOff();
-      state = OFF;
-    break;
+  if(state == PRE_ALARM){
+    switch (ledState){
+      case OFF:
+        led->switchOn();
+        ledState = ON; 
+      break;
+      case ON:
+        led->switchOff();
+        ledState = OFF;
+      break;
+    }
   }
 }
