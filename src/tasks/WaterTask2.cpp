@@ -71,12 +71,13 @@ void WaterTask2::tick() {
 				state = MANUAL;
 			}
 			else {
-				valveAngle = map((long)currDistance, W2, WMAX, 544, 2400);
 				ledB->switchOff();
 				ledC->switchOn();
-				if(servoMotor->readAngle() != valveAngle){
+				if(currDistance > WMAX) {
+					valveAngle = map((long)currDistance, W2, WMAX, 0, 180);
+					if(servoMotor->readAngle() != map((long)currDistance, W2, WMAX, 0, 180)){
 					servoMotor->move(map((long)currDistance, W2, WMAX, 0, 180));
-					delay(15);
+				}
 				}
 			}
 		break;

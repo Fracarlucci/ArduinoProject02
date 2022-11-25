@@ -14,9 +14,7 @@ void ServoMotor::on() {
 }
 
 void ServoMotor::move(int angle) {
-  // min is 544, max is 2400 (ref ServoTimer2.h)
-  float coeff = (2400.0-544.0)/180;
-  motor.write(544 + angle*coeff);  
+  motor.write(angle);  
 }
 
 int ServoMotor::readAngle() {
