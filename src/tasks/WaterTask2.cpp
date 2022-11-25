@@ -4,13 +4,17 @@ float currDistance;
 State state;
 int valveAngle;
 
-WaterTask2::WaterTask2(int pinLedB, int pinLedC, int pinTrigger, int pinEcho, int pinServoMotor) {
+WaterTask2::WaterTask2(int pinLedB, int pinLedC, int pinTrigger, int pinEcho,
+	int pinServoMotor, int pinButton, int pinPotentiometer) {
   this->ledB = new Led(pinLedB);
   this->ledC = new Led(pinLedC);
   this->sensor = new UltrasonicSensor(pinTrigger, pinEcho);
 	this->lcd = new LcdDisplay();
 	this->servoMotor = new ServoMotor(pinServoMotor);
+	this->button = new Button(pinButton);
+	this->potentiometer = new Potentiometer(pinPotentiometer);
 	currDistance = 0;
+
 	//this->blinkTask = new BlinkTask(pinLedC);
 }
 
@@ -63,6 +67,9 @@ void WaterTask2::tick() {
 			if(currDistance > W2){
 				state = PRE_ALARM;
 			}
+			else if(button->isPressed()){
+				state = MANUAL;
+			}
 			else {
 				valveAngle = map((long)currDistance, W2, WMAX, 544, 2400);
 				ledB->switchOff();
@@ -73,7 +80,16 @@ void WaterTask2::tick() {
 				}
 			}
 		break;
-		default:
-			break;
+
+		case MANUAL:
+			Serial.println("MANUAL");
+			if(button->isPressed()){
+				state = ALARM;
+			}
+			else {
+				//potentiometer->getValue();
+				servoMotor->move(map((long)potentiometer->getValue(), 0, 1023, 0, 180));
+			}
+		break;
 	}
 }
