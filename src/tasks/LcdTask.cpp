@@ -7,10 +7,10 @@ void LcdTask::init(int period) {
 }
 
 void LcdTask::tick() {
+  lcd->clearDisplay();
   if(state == NORMAL) {
     return;
   }
-  lcd->clearDisplay();
   lcd->setCursorDisplay(0, 0);
 	lcd->printText("Water level: " + String(currDistance));
   if(state == ALARM) {
