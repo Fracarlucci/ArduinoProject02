@@ -9,7 +9,7 @@ WaterLevelTask::WaterLevelTask(const int pinLedB, const int pinLedC, const int p
   this->blinkTask = new BlinkTask(pinLedC);
   this->ledB = new Led(pinLedB);
   this->ledC = new Led(pinLedC);
-  this->waterState = new WaterState(new UltrasonicSensor(pinTrigger, pinEcho), this->W1, this->W2);
+  //this->waterState = new WaterState(new UltrasonicSensor(pinTrigger, pinEcho), this->W1, this->W2);
   this->lcd = new LcdDisplay();
   this->potentiometer = new Potentiometer(pinPotentiometer);
   this->button = new Button(buttonPin);
@@ -25,6 +25,7 @@ void WaterLevelTask::init(const int period, const int blinkPeriod) {
 }
 
 void WaterLevelTask::tick() {
+  /*
   switch (state)
   {
     case NORMAL:
@@ -99,9 +100,8 @@ void WaterLevelTask::tick() {
       } else {
         this->servoMotor->move(map(this->potentiometer->getValue(), 0, 1023, 0, 180));
       }
-    break;
+    break;*/
   
    /* default:
     break;*/
-  }
 }

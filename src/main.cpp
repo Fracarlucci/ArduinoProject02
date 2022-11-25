@@ -3,6 +3,8 @@
 #include "scheduler/Scheduler.h"
 #include "tasks/SmartLighting.h"
 #include "tasks/WaterTask2.h"
+#include "model/WaterState.h"
+
 
 Scheduler sched;
 
@@ -12,12 +14,16 @@ void setup() {
  
   //Task* t0 = new SmartLighting(8, 9, A0, 3, 10);
   WaterTask2* t1 = new WaterTask2(8, 11, 2, 3, 9);
+  WaterState* w1 = new WaterState(new UltrasonicSensor(2, 3));
  
   //t0->init(100);
   t1->init(100);
+  w1->init(100);
   
   //sched.addTask(t0);
   sched.addTask(t1);
+  sched.addTask(w1);
+  
 }
 
 void loop() {

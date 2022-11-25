@@ -1,31 +1,22 @@
 #include "WaterState.h"
+#include "../tasks/WaterTask2.h"
 #include "../devices/UltrasonicSensor.h"
 #include "Arduino.h"
 
-WaterState::WaterState(UltrasonicSensor* sensor, const float w1, const float w2){
-  this->w1 = w1;
-  this-> w2 = w2;
+WaterState::WaterState(UltrasonicSensor* sensor){
   this->sensor = sensor;
 } 
 
-float WaterState::getWaterLevel() {
-    return this->sensor->getDistance();
+// setting initial period
+void WaterState::init(int period) {
+  Task::init(period);
 }
 
-float WaterState::getWaterLevelEveryMilliseconds(const unsigned long int startTime, const unsigned long int period) {
-  return (millis() - startTime >= period) ? this->getWaterLevel() : -1;
-}
-  
-bool WaterState::isNormal(){
-  Serial.println(this->sensor->getDistance());
-  return (this->sensor->getDistance() >= w1);
+void WaterState::tick(){
+  currDistance = this->sensor->getDistance();
 }
 
-bool WaterState::isPreAlarm(){
-  Serial.println(this->sensor->getDistance());
-  return (this->sensor->getDistance() < w1 && this->sensor->getDistance() > w2);
-}
-
-bool WaterState::isAlarm(){
-  return (this->sensor->getDistance() <= w2);
+// setting the new period fo sampling
+void WaterState::setPeriod(int newPeriod) {
+  this->myPeriod = newPeriod;
 }

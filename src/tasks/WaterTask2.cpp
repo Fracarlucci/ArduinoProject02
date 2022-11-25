@@ -1,6 +1,7 @@
 #include "WaterTask2.h"
 
 State state;
+float currDistance = 0;
 
 WaterTask2::WaterTask2(int pinLedB, int pinLedC, int pinTrigger, int pinEcho, int pinServoMotor) {
   this->ledB = new Led(pinLedB);
@@ -15,7 +16,7 @@ WaterTask2::WaterTask2(int pinLedB, int pinLedC, int pinTrigger, int pinEcho, in
 void WaterTask2::init(int period) {
   Task::init(period);
 	servoMotor->on();
-  state = NORMAL;
+  	state = NORMAL;
 
 	blinkTask->init(500);
 }
@@ -23,7 +24,7 @@ void WaterTask2::init(int period) {
 void WaterTask2::tick() {
 	//lcd->clearDisplay();
 	delay(15);
-	currDistance = sensor->getDistance();
+	//currDistance = sensor->getDistance();
 	lcd->setCursorDisplay(0, 0);
 	lcd->printText("Water level: " + String(currDistance));
 
@@ -35,6 +36,7 @@ void WaterTask2::tick() {
 					state = PRE_ALARM;
 			}
 			else{
+					waterState->setPeriod(PEN);
 					ledB->switchOn();
 					ledC->switchOff();
 					//if(servoMotor->readAngle() != 544){
@@ -53,6 +55,7 @@ void WaterTask2::tick() {
 					state = ALARM;
 			}
 			else {
+					waterState->setPeriod(PEP);
 					ledB->switchOff();
 					blinkTask->tick();
 					//ledC->switchOn();
@@ -65,6 +68,7 @@ void WaterTask2::tick() {
 				state = PRE_ALARM;
 			}
 			else {
+				waterState->setPeriod(PEA);
 				ledB->switchOff();
 				ledC->switchOn();
 				if(servoMotor->readAngle() != map((long)currDistance, W2, WMAX, 544, 2400)){

@@ -20,7 +20,7 @@ public:
     }
   }
 
-private:
+protected:
   int myPeriod;
   int timeElapsed;
 };

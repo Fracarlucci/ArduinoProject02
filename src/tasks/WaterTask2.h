@@ -8,12 +8,18 @@
 #include "../devices/UltrasonicSensor.h"
 #include "../devices/LcdDisplay.h"
 #include "../devices/ServoMotor.h"
+#include "../model/WaterState.h"
 #include "blinkTask.h"
 
 #define W1 100
 #define W2 50
+#define PEA 100
+#define PEP 500
+#define PEN 1000
 #define WMAX 10
 typedef enum {NORMAL, PRE_ALARM, ALARM, MANUAL} State;
+
+extern float currDistance;
 
 class WaterTask2: public Task {
 	public:
@@ -28,7 +34,7 @@ class WaterTask2: public Task {
 	UltrasonicSensor* sensor;
 	LcdDisplay* lcd;
 	ServoMotor* servoMotor;
-
+	WaterState* waterState;
 	BlinkTask* blinkTask;
 };
 
