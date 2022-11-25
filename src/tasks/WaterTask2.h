@@ -11,8 +11,8 @@
 //#include "blinkTask.h"
 
 #define W1 100
-#define W2 10
-#define WMAX 0
+#define W2 50
+#define WMAX 10
 typedef enum {NORMAL, PRE_ALARM, ALARM, MANUAL} State;
 
 extern float currDistance;
