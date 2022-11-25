@@ -5,12 +5,10 @@
 #include "../devices/Led.h"
 #include "WaterTask2.h"
 
-extern State state;
-
 class BlinkTask: public Task {
 public:
-  BlinkTask(int pin);  
-  void init(int period);  
+  BlinkTask(int pin);
+  void init(int period);
   void tick();
 
 private:

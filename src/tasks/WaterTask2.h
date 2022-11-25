@@ -15,14 +15,18 @@
 #define WMAX 0
 typedef enum {NORMAL, PRE_ALARM, ALARM, MANUAL} State;
 
+extern float currDistance;
+extern int valveAngle;
+extern State state;
+
 class WaterTask2: public Task {
 	public:
 	WaterTask2(int pinLedB, int pinLedC, int pinTrigger, int pinEcho, int pinServoMotor);
 	void init(int period);
 	void tick();
+	static float getCurrDistance();
 
 	private:
-	float currDistance;
 	Led* ledB;
 	Led* ledC;
 	UltrasonicSensor* sensor;

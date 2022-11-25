@@ -1,6 +1,8 @@
 #include "WaterTask2.h"
 
+float currDistance;
 State state;
+int valveAngle;
 
 WaterTask2::WaterTask2(int pinLedB, int pinLedC, int pinTrigger, int pinEcho, int pinServoMotor) {
   this->ledB = new Led(pinLedB);
@@ -8,7 +10,7 @@ WaterTask2::WaterTask2(int pinLedB, int pinLedC, int pinTrigger, int pinEcho, in
   this->sensor = new UltrasonicSensor(pinTrigger, pinEcho);
 	this->lcd = new LcdDisplay();
 	this->servoMotor = new ServoMotor(pinServoMotor);
-	this->currDistance = 0;
+	currDistance = 0;
 	//this->blinkTask = new BlinkTask(pinLedC);
 }
 
@@ -62,15 +64,16 @@ void WaterTask2::tick() {
 				state = PRE_ALARM;
 			}
 			else {
+				valveAngle = map((long)currDistance, W2, WMAX, 544, 2400);
 				ledB->switchOff();
 				ledC->switchOn();
-				if(servoMotor->readAngle() != map((long)currDistance, W2, WMAX, 544, 2400)){
+				if(servoMotor->readAngle() != valveAngle){
 					servoMotor->move(map((long)currDistance, W2, WMAX, 0, 180));
 					delay(15);
 				}
-				//lcd->setCursorDisplay(0,1);
-				//lcd->printText("Valve angle: " + String(map(servoMotor->readAngle(), 544, 2400, 0, 180)));
 			}
 		break;
+		default:
+			break;
 	}
 }

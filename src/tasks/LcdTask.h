@@ -5,8 +5,6 @@
 #include "../devices/LcdDisplay.h"
 #include "WaterTask2.h"
 
-extern State state;
-
 class LcdTask: public Task {
 public:
   void init(int period);  
