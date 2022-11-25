@@ -9,21 +9,15 @@ WaterTask2::WaterTask2(int pinLedB, int pinLedC, int pinTrigger, int pinEcho,
   this->ledB = new Led(pinLedB);
   this->ledC = new Led(pinLedC);
   this->sensor = new UltrasonicSensor(pinTrigger, pinEcho);
-	this->lcd = new LcdDisplay();
 	this->servoMotor = new ServoMotor(pinServoMotor);
 	this->button = new Button(pinButton);
-	this->potentiometer = new Potentiometer(pinPotentiometer);
 	currDistance = 0;
-
-	//this->blinkTask = new BlinkTask(pinLedC);
 }
 
 void WaterTask2::init(int period) {
   Task::init(period);
 	servoMotor->on();
   state = NORMAL;
-
-	//blinkTask->init(500);
 }
 
 void WaterTask2::tick() {
@@ -40,10 +34,7 @@ void WaterTask2::tick() {
 			else{
 					ledB->switchOn();
 					ledC->switchOff();
-					//if(servoMotor->readAngle() != 544){
-						servoMotor->move(0);
-					//	delay(15);
-					//}
+					servoMotor->move(0);
 			}
 		break;
 
@@ -57,8 +48,6 @@ void WaterTask2::tick() {
 			}
 			else {
 					ledB->switchOff();
-					//blinkTask->tick();
-					//ledC->switchOn();
 			}
 		break;
 
@@ -71,13 +60,13 @@ void WaterTask2::tick() {
 				state = MANUAL;
 			}
 			else {
-				ledB->switchOff();
-				ledC->switchOn();
-				if(currDistance > WMAX) {
-					valveAngle = map((long)currDistance, W2, WMAX, 0, 180);
-					if(servoMotor->readAngle() != map((long)currDistance, W2, WMAX, 0, 180)){
-					servoMotor->move(map((long)currDistance, W2, WMAX, 0, 180));
-				}
+					ledB->switchOff();
+					ledC->switchOn();
+					if(currDistance > WMAX) {
+						valveAngle = map((long)currDistance, W2, WMAX, 0, 180);
+						if(servoMotor->readAngle() != map((long)currDistance, W2, WMAX, 0, 180)){
+							servoMotor->move(map((long)currDistance, W2, WMAX, 0, 180));
+					}
 				}
 			}
 		break;
@@ -88,8 +77,8 @@ void WaterTask2::tick() {
 				state = ALARM;
 			}
 			else {
-				//potentiometer->getValue();
-				servoMotor->move(map((long)potentiometer->getValue(), 0, 1023, 0, 180));
+				valveAngle = map(val, 0, 1023, 0, 180);
+				servoMotor->move(map(analogRead(A0), 0, 1023, 0, 180));
 			}
 		break;
 	}
