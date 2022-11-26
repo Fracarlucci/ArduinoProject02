@@ -12,7 +12,7 @@ public:
   virtual void schedule();
   
 private: 
-  int basePeriod;
+  unsigned int basePeriod;
   unsigned int currentMillis;
   unsigned int previousMillis;
   int nTasks;

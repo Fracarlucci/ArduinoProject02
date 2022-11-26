@@ -2,8 +2,8 @@
 #define __BLINKTASK__
 
 #include "Task.h"
-#include "../devices/Led.h"
 #include "WaterTask2.h"
+#include "../devices/Led.h"
 
 class BlinkTask: public Task {
 public:
@@ -12,7 +12,6 @@ public:
   void tick();
 
 private:
-  int pin;
   Led* led;
   enum { ON, OFF} ledState;
 };
