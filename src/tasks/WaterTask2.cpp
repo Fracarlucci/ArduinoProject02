@@ -4,13 +4,14 @@ int valveAngle;
 State state;
 float currDistance = 0;
 
-WaterTask2::WaterTask2(int pinLedB, int pinLedC, int pinTrigger, int pinEcho,
-	int pinServoMotor/*, int pinButton, int pinPotentiometer*/) {
-  this->ledB = new Led(pinLedB);
+WaterTask2::WaterTask2(int pinLedA, int pinLedB, int pinLedC, int pinTrigger, int pinEcho, int pinServoMotor/*, int pinButton, int pinPotentiometer*/) {
+  this->ledA = new Led(pinLedA);
+	this->ledB = new Led(pinLedB);
   this->ledC = new Led(pinLedC);
   this->sensor = new UltrasonicSensor(pinTrigger, pinEcho);
 	this->servoMotor = new ServoMotor(pinServoMotor);
 	//this->button = new Button(pinButton);
+	this->waterState = new WaterState(this->sensor);
 	currDistance = 0;
 }
 
@@ -77,8 +78,8 @@ void WaterTask2::tick() {
 			// 	state = ALARM;
 			// }
 			//else {
-				valveAngle = map(analogRead(A0), 0, 1023, 0, 180);
-				servoMotor->move(valveAngle);
+			valveAngle = map(analogRead(A0), 0, 1023, 0, 180);
+			servoMotor->move(valveAngle);
 			//}
 		break;
 	}
