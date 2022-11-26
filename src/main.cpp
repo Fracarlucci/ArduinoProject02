@@ -14,14 +14,14 @@ void setup() {
   sched.init(100);
  
   //Task* t0 = new SmartLighting(8, 9, A0, 3, 10);
-  WaterState* w1 = new WaterState(new UltrasonicSensor(2, 3));
-  WaterTask2* t1 = new WaterTask2(8, 11, 2, 3, 9, 13, A0);
-  LcdTask* lcdPrinting = new LcdTask();
+  Task* w1 = new WaterState(new UltrasonicSensor(2, 3));
+  Task* t1 = new WaterTask2(8, 11, 2, 3, 9, 13, A0);
+  Task* lcdPrinting = new LcdTask();
   Task* blinking = new BlinkTask(11);
  
   //t0->init(100);
   t1->init(100);
-  blinking->init(1000);
+  blinking->init(500);
   lcdPrinting->init(500);
   w1->init(100);
   

@@ -6,6 +6,5 @@ Potentiometer::Potentiometer(int pin) {
 }
 
 int Potentiometer::getValue() {
-    Serial.println(analogRead(pin));
     return analogRead(pin);
 }

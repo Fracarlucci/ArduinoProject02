@@ -9,7 +9,8 @@
 #include "../devices/LcdDisplay.h"
 #include "../devices/ServoMotor.h"
 #include "../model/WaterState.h"
-#include "blinkTask.h"
+#include "../devices/Button.h"
+#include "../devices/Potentiometer.h"
 
 #define W1 100
 #define W2 50

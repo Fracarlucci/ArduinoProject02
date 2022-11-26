@@ -15,7 +15,6 @@ void LcdTask::tick() {
 	lcd->printText("Water level: " + String(currDistance));
   if(state == ALARM || state == MANUAL) {
     lcd->setCursorDisplay(0, 1);
-    Serial.println(valveAngle);
     lcd->printText("Valve Angle: " + String(valveAngle));
   }
 }

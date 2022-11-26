@@ -22,8 +22,7 @@ void WaterTask2::init(int period) {
 
 void WaterTask2::tick() {
 	delay(15);
-	currDistance = sensor->getDistance();
-
+	//currDistance = sensor->getDistance();
 	switch (state)
 	{
 		case NORMAL:
@@ -67,9 +66,7 @@ void WaterTask2::tick() {
 				ledC->switchOn();
 				if(currDistance > WMAX) {
 					valveAngle = map((long)currDistance, W2, WMAX, 0, 180);
-					if(servoMotor->readAngle() != map((long)currDistance, W2, WMAX, 0, 180)){
-						servoMotor->move(map((long)currDistance, W2, WMAX, 0, 180));
-				}
+					servoMotor->move(valveAngle);
 				}
 			}
 		break;
@@ -80,8 +77,8 @@ void WaterTask2::tick() {
 				state = ALARM;
 			}
 			else {
-				valveAngle = map(val, 0, 1023, 0, 180);
-				servoMotor->move(map(analogRead(A0), 0, 1023, 0, 180));
+				valveAngle = map(analogRead(A0), 0, 1023, 0, 180);
+				servoMotor->move(valveAngle);
 			}
 		break;
 	}
