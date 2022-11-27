@@ -7,6 +7,10 @@
 #include "../devices/Photoresistor.h"
 #include "../devices/Pir.h"
 
+typedef enum { ON, OFF, SHUTDOWN} LightingState;
+
+extern LightingState lightingState;
+
 class SmartLighting: public Task {
 public:
   SmartLighting(const int ledPin, const int pirPin, const int photoresPin, const int shutdownTime, const int lightThreshold);  
@@ -19,8 +23,6 @@ private:
   unsigned long int startTime;
   unsigned long int elapsedTime;
   unsigned long int shutdownTime;
-
-  enum { ON, OFF, SHUTDOWN} state;
 };
 
 #endif

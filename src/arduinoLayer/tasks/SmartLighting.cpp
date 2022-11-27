@@ -1,8 +1,9 @@
 #include "SmartLighting.h"
-
 #include "../devices/Led.h"
 #include "../devices/Pir.h"
 #include "../devices/Photoresistor.h"
+
+LightingState lightingState;
 
 SmartLighting::SmartLighting(const int ledPin, const int pirPin, const int photoresPin, const int lightThreshold, const int shutdownTime){
   this->shutdownTime = shutdownTime;
@@ -13,37 +14,40 @@ SmartLighting::SmartLighting(const int ledPin, const int pirPin, const int photo
   
 void SmartLighting::init(const int period){
   Task::init(period);
-  this->state = OFF;
+  lightingState = OFF;
   this->elapsedTime = 0;
   this->shutdownTime *= 1000000;
 }
   
 void SmartLighting::tick(){
-  switch (state){
+  Serial.println("LIGHT STATE: "+ String(lightingState));
+  switch (lightingState){
     case OFF:
-      this->led->switchOff();
       if(this->pir->isDetected() && !this->photores->isLuminosityHigher()) {
-        this->state = ON;
-      } 
+        lightingState = ON;
+      } else {
+        this->led->switchOff();
+      }
     break;
     case ON:
-      this->led->switchOn();
       if(this->photores->isLuminosityHigher()) {
-        this->state = OFF;
+        lightingState = OFF;
       } else if (!this->pir->isDetected()) {
         this->startTime = micros();
-        this->state = SHUTDOWN;
+        lightingState = SHUTDOWN;
+      } else {
+        this->led->switchOn();
       }
     break;
     case SHUTDOWN:
       if(this->photores->isLuminosityHigher()) {
-        this->state = OFF;
+        lightingState = OFF;
       } else if(this->pir->isDetected()) {
-        this->state = ON;
+        lightingState = ON;
       } else {
         this->elapsedTime = micros();
         if(this->elapsedTime - this->startTime >= this->shutdownTime) {
-          this->state = OFF;
+          lightingState = OFF;
         }
       }
     break;
