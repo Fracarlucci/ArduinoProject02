@@ -37,5 +37,7 @@ void setup() {
 }
 
 void loop() {
-  sched.schedule();
+  //sched.schedule();
+  Serial.println(state);
+  delay(100);
 }
