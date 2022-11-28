@@ -12,8 +12,6 @@
 Scheduler sched;
 
 void setup() {
-  Serial.begin(9600);
-  Serial.setTimeout(1);
   sched.init(10);
  
   Task* t0 = new SmartLighting(10, 6, A1, 3, 10);
@@ -42,8 +40,5 @@ void setup() {
 }
 
 void loop() {
-  //sched.schedule();
-  Serial.println("l" + String(lightingState));
-  Serial.println("s" + String(state));
-  delay(1000);
+  sched.schedule();
 }
