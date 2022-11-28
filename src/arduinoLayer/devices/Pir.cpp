@@ -24,6 +24,5 @@ bool Pir::isDetected() {
     if (current != this->detected_status) {
         this->detected_status = current;
     }
-    Serial.println("PIR rileva: " + String(detected_status));
     return this->detected_status;
 }

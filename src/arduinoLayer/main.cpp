@@ -16,7 +16,7 @@ void setup() {
  
   Task* t0 = new SmartLighting(10, 6, A1, 3, 10);
   Task* w1 = new WaterState(new UltrasonicSensor(2, 3));
-  Task* t1 = new WaterTask2(8, 11, 2, 3, 9/*, 13, A0*/);
+  Task* t1 = new WaterTask2(8, 11, 2, 3, 9/*, 13, A0*/, w1);
   Task* lcdPrinting = new LcdTask();
   Task* blinking = new BlinkTask(11);
   Task* button = new ButtonTask(13);

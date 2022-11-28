@@ -10,7 +10,6 @@ class WaterState: public Task {
       WaterState(UltrasonicSensor* sensor);
       void init(int period);
 	    void tick();
-      void setPeriod(int period);
 
      private: 
       UltrasonicSensor* sensor;

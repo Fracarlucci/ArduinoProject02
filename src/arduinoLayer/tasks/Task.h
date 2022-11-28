@@ -1,10 +1,12 @@
 #ifndef __TASK__
 #define __TASK__
 
+#include "Arduino.h"
+
 class Task {
 public:
   virtual void init(int period){
-    myPeriod = period;  
+    this->myPeriod = period;  
     timeElapsed = 0;
   }
 
@@ -12,12 +14,16 @@ public:
 
   bool updateAndCheckTime(int basePeriod){
     timeElapsed += basePeriod;
-    if (timeElapsed >= myPeriod){
+    if (timeElapsed >= this->myPeriod){
       timeElapsed = 0;
       return true;
     } else {
       return false; 
     }
+  }
+
+  void setPeriod(int period) {
+    this->myPeriod = period;
   }
 
 protected:

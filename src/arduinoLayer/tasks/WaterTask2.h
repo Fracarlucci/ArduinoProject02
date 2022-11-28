@@ -28,7 +28,7 @@ extern State state;
 
 class WaterTask2: public Task {
 	public:
-	WaterTask2(int pinLedB, int pinLedC, int pinTrigger, int pinEcho, int pinServoMotor/*, int pinButton, int pinPotentiometer*/);
+	WaterTask2(int pinLedB, int pinLedC, int pinTrigger, int pinEcho, int pinServoMotor/*, int pinButton, int pinPotentiometer*/, Task* sonar);
 	void init(int period);
 	void tick();
 	static float getCurrDistance();
@@ -40,6 +40,7 @@ class WaterTask2: public Task {
 	LcdDisplay* lcd;
 	ServoMotor* servoMotor;
 	WaterState* waterState;
+	Task* sonar;
 	//Button* button;
 	//Potentiometer* potentiometer;
 };

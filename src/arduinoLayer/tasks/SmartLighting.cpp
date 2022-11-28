@@ -20,7 +20,7 @@ void SmartLighting::init(const int period){
 }
   
 void SmartLighting::tick(){
-  Serial.println("LIGHT STATE: "+ String(lightingState));
+  //Serial.println("LIGHT STATE: "+ String(lightingState));
   switch (lightingState){
     case OFF:
       if(this->pir->isDetected() && !this->photores->isLuminosityHigher()) {

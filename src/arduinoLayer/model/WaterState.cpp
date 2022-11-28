@@ -15,8 +15,3 @@ void WaterState::init(int period) {
 void WaterState::tick(){
   currDistance = this->sensor->getDistance();
 }
-
-// setting the new period fo sampling
-void WaterState::setPeriod(int newPeriod) {
-  this->myPeriod = newPeriod;
-}
