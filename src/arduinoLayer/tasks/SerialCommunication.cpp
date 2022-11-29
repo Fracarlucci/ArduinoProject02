@@ -12,4 +12,5 @@ void SerialCommunication::init(int period) {
 void SerialCommunication::tick(){
   Serial.println("Bridge: "+ String(state));
   Serial.println("SmartLight: "+ String(lightingState));
+  Serial.println("Graph: " + String(millis()) + ", " + String(currDistance));
 }
