@@ -6,6 +6,18 @@ Button::Button(int pin){
   pinMode(pin, INPUT);     
 } 
   
-bool Button::isPressed(){
-  return digitalRead(pin) == HIGH;
+static void Button::isPressed(){
+  switch (state)
+  {
+    case ALARM:
+        state = MANUAL;
+    break;
+  
+    case MANUAL:
+        state = ALARM;
+    break;
+
+    default:
+    break;
+  }
 }
