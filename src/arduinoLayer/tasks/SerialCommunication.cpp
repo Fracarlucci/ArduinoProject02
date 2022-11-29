@@ -10,6 +10,6 @@ void SerialCommunication::init(int period) {
 }
 
 void SerialCommunication::tick(){
-  Serial.println("l" + String(lightingState));
-  Serial.println("s" + String(state));
+  Serial.println("Bridge: "+ String(state));
+  Serial.println("SmartLight: "+ String(lightingState));
 }

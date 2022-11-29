@@ -19,9 +19,6 @@ void WaterTask2::init(int period) {
   Task::init(period);
 	servoMotor->on();
   state = NORMAL;
-
-  //mando nella seriale lo stato iniziale
-	Serial.println("Bridge: "+ String(state));
 }
 
 void WaterTask2::tick() {
@@ -33,10 +30,6 @@ void WaterTask2::tick() {
 			//Serial.println("NORMAL");
 			if(currDistance < W1){
 					state = PRE_ALARM;
-
-					//mando nella seriale lo stato 
-					Serial.println("Bridge: "+ String(state));
-
 			}
 			else{
 					sonar->setPeriod(PEN);
@@ -50,13 +43,9 @@ void WaterTask2::tick() {
 			//Serial.println("PRE_ALARM");
 			if(currDistance >= W1){
 					state = NORMAL;
-					//mando nella seriale lo stato 
-					Serial.println("Bridge: "+ String(state));
 			}
 			else if(currDistance <= W2){
 					state = ALARM;
-					//mando nella seriale lo stato 
-					Serial.println("Bridge: "+ String(state));
 			}
 			else {
 					sonar->setPeriod(PEP);
@@ -68,8 +57,6 @@ void WaterTask2::tick() {
 			//Serial.println("ALARM");
 			if(currDistance > W2){
 				state = PRE_ALARM;
-				//mando nella seriale lo stato 
-				Serial.println("Bridge: "+ String(state));
 			}
 			// else if(button->isPressed()){
 			// 	state = MANUAL;
@@ -79,8 +66,6 @@ void WaterTask2::tick() {
 				ledB->switchOff();
 				ledC->switchOn();
 				lightingState = OFF;
-				//mando nella seriale lo stato 
-				Serial.println("SmartLight: "+ String(lightingState));
 				if(currDistance > WMAX) {
 					valveAngle = map((long)currDistance, W2, WMAX, 0, 180);
 					servoMotor->move(valveAngle);
@@ -95,8 +80,6 @@ void WaterTask2::tick() {
 			// }
 			//else {
 			lightingState = OFF;
-			//mando nella seriale lo stato 
-			Serial.println("SmartLight: "+ String(lightingState));
 			valveAngle = map(analogRead(A0), 0, 1023, 0, 180);
 			servoMotor->move(valveAngle);
 			//}
