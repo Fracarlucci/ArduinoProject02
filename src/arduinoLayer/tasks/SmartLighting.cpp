@@ -17,6 +17,9 @@ void SmartLighting::init(const int period){
   lightingState = OFF;
   this->elapsedTime = 0;
   this->shutdownTime *= 1000000;
+
+  //All'inizio mando nella seriale lo stato
+  Serial.println("SmartLight: "+ String(lightingState));
 }
   
 void SmartLighting::tick(){
@@ -25,6 +28,10 @@ void SmartLighting::tick(){
     case OFF:
       if(this->pir->isDetected() && !this->photores->isLuminosityHigher()) {
         lightingState = ON;
+
+        //mando nella seriale lo stato
+        Serial.println("SmartLight: "+ String(lightingState));
+
       } else {
         this->led->switchOff();
       }
@@ -32,6 +39,10 @@ void SmartLighting::tick(){
     case ON:
       if(this->photores->isLuminosityHigher()) {
         lightingState = OFF;
+
+        //mando nella seriale lo stato
+        Serial.println("SmartLight: "+ String(lightingState));
+
       } else if (!this->pir->isDetected()) {
         this->startTime = micros();
         lightingState = SHUTDOWN;
@@ -42,12 +53,24 @@ void SmartLighting::tick(){
     case SHUTDOWN:
       if(this->photores->isLuminosityHigher()) {
         lightingState = OFF;
+
+        //mando nella seriale lo stato
+        Serial.println("SmartLight: "+ String(lightingState));
+
       } else if(this->pir->isDetected()) {
         lightingState = ON;
+
+        //mando nella seriale lo stato
+        Serial.println("SmartLight: "+ String(lightingState));
+
       } else {
         this->elapsedTime = micros();
         if(this->elapsedTime - this->startTime >= this->shutdownTime) {
           lightingState = OFF;
+
+          //mando nella seriale lo stato
+          Serial.println("SmartLight: "+ String(lightingState));
+
         }
       }
     break;
