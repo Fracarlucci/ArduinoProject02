@@ -66,7 +66,7 @@ void WaterTask::tick() {
 
 		case MANUAL:
 			lightingState = OFF;
-			valveAngle = map(analogRead(A1), 0, 1023, 0, 180);
+			valveAngle = map(analogRead(A1), 0, 1023, 0, 180);	//read the value from the potentiometer
 			servoMotor->move(valveAngle);
 		break;
 	}

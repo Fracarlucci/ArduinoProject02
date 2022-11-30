@@ -1,5 +1,5 @@
 #include <Arduino.h>
-
+#include "config.h"
 #include "scheduler/Scheduler.h"
 #include "tasks/SmartLighting.h"
 #include "tasks/WaterTask.h"
@@ -12,30 +12,30 @@
 Scheduler sched;
 
 void setup() {
-  sched.init(10);
+  sched.init(MCD);
  
-  Task* t0 = new SmartLighting(13, 12, A0, 600, 10);
-  Task* w1 = new WaterLevelTask(new UltrasonicSensor(8, 7));
-  Task* t1 = new WaterTask(11, 10, 6, w1);
+  Task* smartLithing = new SmartLighting(PIN_LEDA, PIN_PIR, A0, LIGHT_THRESHOLD, SHUTDOWN_TIME);
+  Task* waterLevelTask = new WaterLevelTask(new UltrasonicSensor(PIN_TRIGGER, PIN_ECHO));
+  Task* waterTask = new WaterTask(PIN_LEDB, PIN_LEDC, PIN_SERVO, waterLevelTask);
   Task* lcdPrinting = new LcdTask();
-  Task* blinking = new BlinkTask(10);
+  Task* blinking = new BlinkTask(PIN_LEDC);
   Task* serial = new SerialCommunication();
  
-  attachInterrupt(digitalPinToInterrupt(2), Button::isPressed, CHANGE);
+  attachInterrupt(digitalPinToInterrupt(PIN_BUTTON), Button::isPressed, CHANGE);
 
-  t0->init(100);
-  t1->init(100);
+  smartLithing->init(100);
+  waterTask->init(100);
   blinking->init(500);
   lcdPrinting->init(500);
-  w1->init(500);
+  waterLevelTask->init(500);
   serial->init(500);
   
-  sched.addTask(t0);
-  sched.addTask(t1);
+  sched.addTask(serial);
+  sched.addTask(smartLithing);
+  sched.addTask(waterTask);
   sched.addTask(blinking);
   sched.addTask(lcdPrinting);
-  sched.addTask(w1);
-  sched.addTask(serial);
+  sched.addTask(waterLevelTask);
 }
 
 void loop() {

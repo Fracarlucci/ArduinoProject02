@@ -14,17 +14,16 @@
 
 #define W1 100
 #define W2 30
+#define WMAX 10
 #define PEA 500
 #define PEP 1000
 #define PEN 1500
-#define WMAX 10
 
 typedef enum {NORMAL, PRE_ALARM, ALARM, MANUAL} State;
 
 extern float currDistance;
 extern int valveAngle;
 extern State state;
-// extern LightingState lightingState;
 
 class WaterTask: public Task {
 	public:
@@ -36,13 +35,8 @@ class WaterTask: public Task {
 	private:
 	Led* ledB;
 	Led* ledC;
-	UltrasonicSensor* sensor;
-	LcdDisplay* lcd;
 	ServoMotor* servoMotor;
-	WaterLevelTask* waterState;
 	Task* sonar;
-	//Button* button;
-	//Potentiometer* potentiometer;
 };
 
 #endif

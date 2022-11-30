@@ -14,5 +14,5 @@ float UltrasonicSensor::getDistance(){
   digitalWrite(this->triggerPin, HIGH);
   delayMicroseconds(10);
   digitalWrite(this->triggerPin, LOW);
-  return pulseIn(this->echoPin, HIGH) * 0.034 / 2; 
+  return pulseIn(this->echoPin, HIGH) * 0.034 / 2;  //Convert to cm
 }

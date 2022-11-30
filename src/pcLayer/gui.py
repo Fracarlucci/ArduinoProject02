@@ -12,14 +12,14 @@ style.use("ggplot")
 
 #Maps to parse serial input into strings
 state = ['NORMAL', 'PRE-ALARM', 'ALARM', 'MANUAL'] 
-lightingState = ['ON', 'OFF', 'SHOTDOWN']
+lightingState = ['ON', 'OFF', 'SHUTDOWN']
 
 #Create the tkinter master object
 root = tk.Tk()
 root.title('Smart Bridge')
 
 #Init serial comm
-ArduinoSerial = serial.Serial('COM3', 9600) 
+ArduinoSerial = serial.Serial('COM5', 9600) 
 
 #Erase content of WaterLevelData file
 open('waterLevelData.txt', 'w').close()
