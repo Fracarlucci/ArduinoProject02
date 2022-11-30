@@ -51,6 +51,7 @@ void WaterTask::tick() {
 
 		case ALARM:
 			Serial.println("ALARM");
+			isPCControlled = false;
 			if(currDistance > W2){
 				state = PRE_ALARM;
 			}
@@ -60,8 +61,7 @@ void WaterTask::tick() {
 				ledC->switchOn();
 				lightingState = OFF;
 				if(currDistance > WMAX) {
-					valveAngle = !isPCControlled ? map((long)currDistance, W2, WMAX, 0, 180) : valveAngle;
-					isPCControlled = false;
+					valveAngle = map((long)currDistance, W2, WMAX, 0, 180);
 					servoMotor->move(valveAngle);
 				}
 			}
@@ -70,7 +70,7 @@ void WaterTask::tick() {
 		case MANUAL:
 			Serial.println("MANUAL");
 			lightingState = OFF;
-			valveAngle = map(analogRead(A1), 0, 1023, 0, 180);
+			valveAngle = !isPCControlled ? map(analogRead(A1), 0, 1023, 0, 180) : isPCControlled;
 			servoMotor->move(valveAngle);
 		break;
 	}
