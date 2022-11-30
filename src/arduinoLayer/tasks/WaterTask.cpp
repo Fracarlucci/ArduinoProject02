@@ -70,7 +70,7 @@ void WaterTask::tick() {
 		case MANUAL:
 			Serial.println("MANUAL");
 			lightingState = OFF;
-			valveAngle = !isPCControlled ? map(analogRead(A1), 0, 1023, 0, 180) : isPCControlled;
+			valveAngle = !isPCControlled ? map(analogRead(A1), 0, 1023, 0, 180) : valveAngle;
 			servoMotor->move(valveAngle);
 		break;
 	}
