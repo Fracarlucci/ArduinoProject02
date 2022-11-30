@@ -28,9 +28,9 @@ def arduino_worker():
     while True:
         data = ArduinoSerial.readline().strip().decode("utf-8")
         if data.startswith("SmartLight:"):
-            smartLight.set(data.split(":")[1])
+            smartLight.set(lightingState[int(data.split(":")[1])])
         elif data.startswith("Bridge:"):
-            bridgeState.set(data.split(":")[1])
+            bridgeState.set(state[int(data.split(":")[1])])
         elif data.startswith("Graph:"):
             file = open('waterLevelData.txt', 'a')
             file.write(data.split(":")[1] + "\n")
