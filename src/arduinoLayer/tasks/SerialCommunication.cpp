@@ -16,7 +16,7 @@ void SerialCommunication::tick(){
 
   //Slider Input
   String inputData = Serial.readString();
-  if(inputData.startsWith("Slider:") && state == ALARM) {
+  if(inputData.startsWith("Slider:") && (state == ALARM || (state == MANUAL && isPCControlled))) {
     state = MANUAL;
     valveAngle = inputData.substring(inputData.lastIndexOf(":") + 1, inputData.length()).toInt();
     isPCControlled = true;
