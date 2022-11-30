@@ -4,7 +4,6 @@
 int valveAngle;
 State state;	// it is used from all classes 
 float currDistance = 0;
-bool isPCControlled = false;
 
 WaterTask::WaterTask(int pinLedB, int pinLedC, int pinServoMotor, Task* sonar) {
 	this->ledB = new Led(pinLedB);
@@ -59,8 +58,7 @@ void WaterTask::tick() {
 				ledC->switchOn();
 				lightingState = OFF;
 				if(currDistance > WMAX) {
-					valveAngle = !isPCControlled ? map((long)currDistance, W2, WMAX, 0, 180) : valveAngle;
-					isPCControlled = false;
+					valveAngle = map((long)currDistance, W2, WMAX, 0, 180);
 					servoMotor->move(valveAngle);
 				}
 			}

@@ -11,10 +11,11 @@ import matplotlib.animation as animation
 from matplotlib import style
 style.use("ggplot")
 
+#Maps to parse serial input into strings
 state = ['NORMAL', 'PRE-ALARM', 'ALARM', 'MANUAL'] 
 lightingState = ['ON', 'OFF', 'SHOTDOWN']
 
-# Create the master object
+#Create the tkinter master object
 root = tk.Tk()
 
 #Init serial comm
@@ -28,9 +29,9 @@ def arduino_worker():
     while True:
         data = ArduinoSerial.readline().strip().decode("utf-8")
         if data.startswith("SmartLight:"):
-            smartLight.set(data.split(":")[1])
+            smartLight.set(lightingState[int(data.split(":")[1])])
         elif data.startswith("Bridge:"):
-            bridgeState.set(data.split(":")[1])
+            bridgeState.set(state[int(data.split(":")[1])])
         elif data.startswith("Graph:"):
             file = open('waterLevelData.txt', 'a')
             file.write(data.split(":")[1] + "\n")
@@ -46,20 +47,11 @@ tk.Label(root, text="Bridge State:" ).pack()
 bridgeState = tk.StringVar()
 tk.Label(root, textvariable=bridgeState).pack()
 
-#Slider 
-
-tk.Label(root, text="Open Valve:" ).pack()
-
-def onSliderChange(event):
-     ArduinoSerial.write(("Slider: " + str(slider.get())).encode("utf-8"))
-
-slider = Scale(root, from_=0, to=180, command=onSliderChange, orient=HORIZONTAL)
-slider.pack()
-
-#Realtime graph
+#Realtime graph (matplotlib figure embedded into tkinter window)
 f = Figure(figsize=(5,4), dpi=100)
 a = f.add_subplot(111)
 
+#Function to plot data in realtime
 def animate(i):
     pullData = open('waterLevelData.txt','r').read()
     dataArray = pullData.split('\n')
