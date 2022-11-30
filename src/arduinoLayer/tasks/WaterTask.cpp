@@ -3,7 +3,6 @@
 int valveAngle;
 State state;
 float currDistance = 0;
-bool isPCControlled = false;
 
 WaterTask::WaterTask(int pinLedB, int pinLedC, int pinServoMotor, Task* sonar) {
 	this->ledB = new Led(pinLedB);
@@ -51,7 +50,6 @@ void WaterTask::tick() {
 
 		case ALARM:
 			Serial.println("ALARM");
-			isPCControlled = false;
 			if(currDistance > W2){
 				state = PRE_ALARM;
 			}
@@ -70,7 +68,7 @@ void WaterTask::tick() {
 		case MANUAL:
 			Serial.println("MANUAL");
 			lightingState = OFF;
-			valveAngle = !isPCControlled ? map(analogRead(A1), 0, 1023, 0, 180) : valveAngle;
+			valveAngle = map(analogRead(A1), 0, 1023, 0, 180);
 			servoMotor->move(valveAngle);
 		break;
 	}
