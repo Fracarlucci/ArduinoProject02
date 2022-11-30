@@ -9,13 +9,9 @@ Pir::Pir(int pin, int calibrating_time) {
 }
 
 void Pir::calibrating() {
-    Serial.print("Calibrating sensor... ");
     for(int i = 0; i < this->calibrating_time; i++) {
-        Serial.print(".");
         delay(1000);
     }
-    Serial.println(" done");
-    Serial.println("PIR SENSOR READY.");
     this->detected_status = false;
 }
 

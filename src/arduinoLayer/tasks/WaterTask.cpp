@@ -1,7 +1,8 @@
 #include "WaterTask.h"
 
+//global vars for lcd and serial communications
 int valveAngle;
-State state;
+State state;	// it is used from all classes 
 float currDistance = 0;
 
 WaterTask::WaterTask(int pinLedB, int pinLedC, int pinServoMotor, Task* sonar) {
@@ -18,11 +19,11 @@ void WaterTask::init(int period) {
   state = NORMAL;
 }
 
+//it manage the movement of the servo and leds
 void WaterTask::tick() {
 	switch (state)
 	{
 		case NORMAL:
-			Serial.println("NORMAL");
 			if(currDistance < W1){
 					state = PRE_ALARM;
 			}
@@ -35,7 +36,6 @@ void WaterTask::tick() {
 		break;
 
 		case PRE_ALARM:
-			Serial.println("PRE_ALARM");
 			if(currDistance >= W1){
 					state = NORMAL;
 			}
@@ -49,7 +49,6 @@ void WaterTask::tick() {
 		break;
 
 		case ALARM:
-			Serial.println("ALARM");
 			if(currDistance > W2){
 				state = PRE_ALARM;
 			}
@@ -66,7 +65,6 @@ void WaterTask::tick() {
 		break;
 
 		case MANUAL:
-			Serial.println("MANUAL");
 			lightingState = OFF;
 			valveAngle = map(analogRead(A1), 0, 1023, 0, 180);
 			servoMotor->move(valveAngle);
