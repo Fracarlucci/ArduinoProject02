@@ -1,13 +1,13 @@
 #ifndef __WATER_STATE__
 #define __WATER_STATE__
 
-#include "../tasks/Task.h"
+#include "Task.h"
 #include "Arduino.h"
 #include "../devices/UltrasonicSensor.h"
 
-class WaterState: public Task {
+class WaterLevelTask: public Task {
     public: 
-      WaterState(UltrasonicSensor* sensor);
+      WaterLevelTask(UltrasonicSensor* sensor);
       void init(int period);
 	    void tick();
 

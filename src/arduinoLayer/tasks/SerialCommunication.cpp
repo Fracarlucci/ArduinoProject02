@@ -17,7 +17,7 @@ void SerialCommunication::tick(){
   //Slider Input
   String inputData = Serial.readString();
   if(inputData.startsWith("Slider:")) {
-    int valveAngle = inputData.substring(inputData.lastIndexOf(":") + 1, inputData.length()).toInt();
+    valveAngle = inputData.substring(inputData.lastIndexOf(":") + 1, inputData.length()).toInt();
     isPCControlled = true;
   }
 }

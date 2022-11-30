@@ -3,7 +3,7 @@
 #include "scheduler/Scheduler.h"
 #include "tasks/SmartLighting.h"
 #include "tasks/WaterTask2.h"
-#include "model/WaterState.h"
+#include "tasks/WaterLevelTask.h"
 #include "tasks/BlinkTask.h"
 #include "tasks/LcdTask.h"
 #include "devices/Button.h"
@@ -15,7 +15,7 @@ void setup() {
   sched.init(10);
  
   Task* t0 = new SmartLighting(9, 2, A1, 3, 10);
-  Task* w1 = new WaterState(new UltrasonicSensor(8, 7));
+  Task* w1 = new WaterLevelTask(new UltrasonicSensor(8, 7));
   Task* t1 = new WaterTask2(10, 11, 4, w1);
   Task* lcdPrinting = new LcdTask();
   Task* blinking = new BlinkTask(11);

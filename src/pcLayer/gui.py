@@ -15,7 +15,7 @@ style.use("ggplot")
 root = tk.Tk()
 
 #Init serial comm
-ArduinoSerial = serial.Serial('COM3', 9600) 
+ArduinoSerial = serial.Serial('COM5', 9600) 
 
 #Erase content of WaterLevelData file
 open('waterLevelData.txt', 'w').close()
@@ -65,8 +65,8 @@ def animate(i):
     for eachLine in dataArray:
         if len(eachLine)>1:
             x,y = eachLine.split(',')
-            xar.append(int(x))
-            yar.append(int(y))
+            xar.append(float(x))
+            yar.append(float(y))
     a.clear()
     a.plot(xar,yar)
 

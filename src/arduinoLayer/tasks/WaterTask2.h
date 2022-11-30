@@ -8,7 +8,7 @@
 #include "../devices/UltrasonicSensor.h"
 #include "../devices/LcdDisplay.h"
 #include "../devices/ServoMotor.h"
-#include "../model/WaterState.h"
+#include "WaterLevelTask.h"
 #include "../devices/Button.h"
 #include "../devices/Potentiometer.h"
 
@@ -40,7 +40,7 @@ class WaterTask2: public Task {
 	UltrasonicSensor* sensor;
 	LcdDisplay* lcd;
 	ServoMotor* servoMotor;
-	WaterState* waterState;
+	WaterLevelTask* waterState;
 	Task* sonar;
 	//Button* button;
 	//Potentiometer* potentiometer;
