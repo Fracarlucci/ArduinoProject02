@@ -5,11 +5,12 @@
 
 class Button {
 public: 
-  Button(int pin);
   static void isPressed();
 
 private:
-  int pin;
+  static unsigned long startTime;
+  static unsigned long elapsedTime;
+  static unsigned long shutdownTime;
 };
 
 #endif
