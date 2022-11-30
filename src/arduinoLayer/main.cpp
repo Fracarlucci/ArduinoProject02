@@ -14,14 +14,14 @@ Scheduler sched;
 void setup() {
   sched.init(10);
  
-  Task* t0 = new SmartLighting(9, 2, A1, 3, 10);
+  Task* t0 = new SmartLighting(13, 12, A0, 600, 10);
   Task* w1 = new WaterLevelTask(new UltrasonicSensor(8, 7));
-  Task* t1 = new WaterTask(10, 11, 4, w1);
+  Task* t1 = new WaterTask(11, 10, 6, w1);
   Task* lcdPrinting = new LcdTask();
-  Task* blinking = new BlinkTask(11);
+  Task* blinking = new BlinkTask(10);
   Task* serial = new SerialCommunication();
  
-  attachInterrupt(digitalPinToInterrupt(3), Button::isPressed, CHANGE);
+  attachInterrupt(digitalPinToInterrupt(2), Button::isPressed, CHANGE);
 
   t0->init(100);
   t1->init(100);

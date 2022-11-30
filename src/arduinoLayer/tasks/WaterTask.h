@@ -13,7 +13,7 @@
 #include "../devices/Potentiometer.h"
 
 #define W1 100
-#define W2 50
+#define W2 30
 #define PEA 500
 #define PEP 1000
 #define PEN 1500

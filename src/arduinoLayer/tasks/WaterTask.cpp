@@ -45,7 +45,7 @@ void WaterTask::tick() {
 			}
 			else {
 					sonar->setPeriod(PEP);
-					ledB->switchOff();
+					ledB->switchOn();
 			}
 		break;
 
@@ -70,7 +70,7 @@ void WaterTask::tick() {
 		case MANUAL:
 			Serial.println("MANUAL");
 			lightingState = OFF;
-			valveAngle = map(analogRead(A2), 0, 1023, 0, 180);
+			valveAngle = map(analogRead(A1), 0, 1023, 0, 180);
 			servoMotor->move(valveAngle);
 		break;
 	}

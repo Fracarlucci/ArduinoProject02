@@ -15,7 +15,7 @@ style.use("ggplot")
 root = tk.Tk()
 
 #Init serial comm
-ArduinoSerial = serial.Serial('COM5', 9600) 
+ArduinoSerial = serial.Serial('COM3', 9600) 
 
 #Erase content of WaterLevelData file
 open('waterLevelData.txt', 'w').close()

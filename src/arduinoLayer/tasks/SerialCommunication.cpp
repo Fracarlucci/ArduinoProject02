@@ -12,7 +12,7 @@ void SerialCommunication::init(int period) {
 void SerialCommunication::tick(){
   Serial.println("Bridge: "+ String(state));
   Serial.println("SmartLight: "+ String(lightingState));
-  Serial.println("Graph: " + String(millis()) + ", " + String(currDistance));
+  Serial.println("Graph: " + String(millis() /1000) + ", " + String(currDistance));
 
   //Slider Input
   String inputData = Serial.readString();
