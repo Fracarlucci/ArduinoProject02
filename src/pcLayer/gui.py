@@ -11,6 +11,9 @@ import matplotlib.animation as animation
 from matplotlib import style
 style.use("ggplot")
 
+state = ['NORMAL', 'PRE-ALARM', 'ALARM', 'MANUAL'] 
+lightingState = ['ON', 'OFF', 'SHOTDOWN']
+
 # Create the master object
 root = tk.Tk()
 

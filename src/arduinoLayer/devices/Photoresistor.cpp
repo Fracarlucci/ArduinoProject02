@@ -7,10 +7,7 @@ Photoresistor::Photoresistor(const int photoresPin, const double lightThreshold)
 }
 
 double Photoresistor::readLuminosity() {
-  Serial.println(analogRead(pin));
   return analogRead(pin);
-  // double valueInVolt = ((double) value) * 5/1024;
-	// return valueInVolt;
 }
 
 bool Photoresistor::isLuminosityHigher(){
