@@ -1,6 +1,6 @@
 #include "SerialCommunication.h"
 #include "Arduino.h"
-#include "WaterTask2.h"
+#include "WaterTask.h"
 #include "SmartLighting.h"
 
 void SerialCommunication::init(int period) {

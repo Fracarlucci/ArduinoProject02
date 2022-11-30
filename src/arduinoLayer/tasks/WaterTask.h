@@ -1,5 +1,5 @@
-#ifndef __WATER_TASK2__
-#define __WATER_TASK2__
+#ifndef __WATER_TASK__
+#define __WATER_TASK__
 
 #include "Task.h"
 #include "Arduino.h"
@@ -27,9 +27,9 @@ extern State state;
 extern bool isPCControlled;
 // extern LightingState lightingState;
 
-class WaterTask2: public Task {
+class WaterTask: public Task {
 	public:
-	WaterTask2(int pinLedB, int pinLedC, int pinServoMotor, Task* sonar);
+	WaterTask(int pinLedB, int pinLedC, int pinServoMotor, Task* sonar);
 	void init(int period);
 	void tick();
 	static float getCurrDistance();

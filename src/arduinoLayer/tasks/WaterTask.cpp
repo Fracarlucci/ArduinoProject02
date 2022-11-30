@@ -1,11 +1,11 @@
-#include "WaterTask2.h"
+#include "WaterTask.h"
 
 int valveAngle;
 State state;
 float currDistance = 0;
 bool isPCControlled = false;
 
-WaterTask2::WaterTask2(int pinLedB, int pinLedC, int pinServoMotor, Task* sonar) {
+WaterTask::WaterTask(int pinLedB, int pinLedC, int pinServoMotor, Task* sonar) {
 	this->ledB = new Led(pinLedB);
   this->ledC = new Led(pinLedC);
 	this->servoMotor = new ServoMotor(pinServoMotor);
@@ -13,13 +13,13 @@ WaterTask2::WaterTask2(int pinLedB, int pinLedC, int pinServoMotor, Task* sonar)
 	currDistance = 0;
 }
 
-void WaterTask2::init(int period) {
+void WaterTask::init(int period) {
   Task::init(period);
 	servoMotor->on();
   state = NORMAL;
 }
 
-void WaterTask2::tick() {
+void WaterTask::tick() {
 	switch (state)
 	{
 		case NORMAL:
