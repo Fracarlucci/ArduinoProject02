@@ -1,28 +1,25 @@
-#include "WaterTask2.h"
+#include "WaterTask.h"
 
 int valveAngle;
 State state;
 float currDistance = 0;
+bool isPCControlled = false;
 
-WaterTask2::WaterTask2(int pinLedB, int pinLedC, int pinTrigger, int pinEcho, int pinServoMotor/*, int pinButton, int pinPotentiometer*/) {
+WaterTask::WaterTask(int pinLedB, int pinLedC, int pinServoMotor, Task* sonar) {
 	this->ledB = new Led(pinLedB);
   this->ledC = new Led(pinLedC);
-  this->sensor = new UltrasonicSensor(pinTrigger, pinEcho);
 	this->servoMotor = new ServoMotor(pinServoMotor);
-	//this->button = new Button(pinButton);
-	this->waterState = new WaterState(this->sensor);
+	this->sonar = sonar;
 	currDistance = 0;
 }
 
-void WaterTask2::init(int period) {
+void WaterTask::init(int period) {
   Task::init(period);
 	servoMotor->on();
   state = NORMAL;
 }
 
-void WaterTask2::tick() {
-	delay(15);
-	//currDistance = sensor->getDistance();
+void WaterTask::tick() {
 	switch (state)
 	{
 		case NORMAL:
@@ -31,7 +28,7 @@ void WaterTask2::tick() {
 					state = PRE_ALARM;
 			}
 			else{
-					waterState->setPeriod(PEN);
+					sonar->setPeriod(PEN);
 					ledB->switchOn();
 					ledC->switchOff();
 					servoMotor->move(0);
@@ -47,8 +44,8 @@ void WaterTask2::tick() {
 					state = ALARM;
 			}
 			else {
-					waterState->setPeriod(PEP);
-					ledB->switchOff();
+					sonar->setPeriod(PEP);
+					ledB->switchOn();
 			}
 		break;
 
@@ -57,16 +54,14 @@ void WaterTask2::tick() {
 			if(currDistance > W2){
 				state = PRE_ALARM;
 			}
-			// else if(button->isPressed()){
-			// 	state = MANUAL;
-			// }
 			else {
-				waterState->setPeriod(PEA);
+				sonar->setPeriod(PEA);
 				ledB->switchOff();
 				ledC->switchOn();
 				lightingState = OFF;
 				if(currDistance > WMAX) {
-					valveAngle = map((long)currDistance, W2, WMAX, 0, 180);
+					valveAngle = !isPCControlled ? map((long)currDistance, W2, WMAX, 0, 180) : valveAngle;
+					isPCControlled = false;
 					servoMotor->move(valveAngle);
 				}
 			}
@@ -74,14 +69,9 @@ void WaterTask2::tick() {
 
 		case MANUAL:
 			Serial.println("MANUAL");
-			// if(button->isPressed()){
-			// 	state = ALARM;
-			// }
-			//else {
 			lightingState = OFF;
-			valveAngle = map(analogRead(A0), 0, 1023, 0, 180);
+			valveAngle = map(analogRead(A1), 0, 1023, 0, 180);
 			servoMotor->move(valveAngle);
-			//}
 		break;
 	}
 }

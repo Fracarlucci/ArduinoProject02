@@ -1,13 +1,16 @@
 #ifndef __BUTTON__
 #define __BUTTON__
 
+#include "../tasks/WaterTask.h"
+
 class Button {
 public: 
-  Button(int pin);
-  bool isPressed();
+  static void isPressed();
 
 private:
-  int pin;
+  static unsigned long startTime;
+  static unsigned long elapsedTime;
+  static unsigned long shutdownTime;
 };
 
 #endif

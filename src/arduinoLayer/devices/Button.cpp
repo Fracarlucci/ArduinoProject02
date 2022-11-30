@@ -1,11 +1,18 @@
 #include "Button.h"
-#include "Arduino.h"
 
-Button::Button(int pin){
-  this->pin = pin;
-  pinMode(pin, INPUT);     
-} 
+unsigned long Button::startTime = micros();
+unsigned long Button::elapsedTime = 0;
+unsigned long Button::shutdownTime = 500000;
   
-bool Button::isPressed(){
-  return digitalRead(pin) == HIGH;
+void Button::isPressed(){
+  elapsedTime = micros();
+  if((elapsedTime - startTime) >= shutdownTime){
+    if(state == ALARM){
+      state = MANUAL;
+    }
+    else if(state == MANUAL){
+      state = ALARM;
+    }
+    startTime = micros();
+  }   
 }

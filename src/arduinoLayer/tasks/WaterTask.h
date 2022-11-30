@@ -1,5 +1,5 @@
-#ifndef __WATER_TASK2__
-#define __WATER_TASK2__
+#ifndef __WATER_TASK__
+#define __WATER_TASK__
 
 #include "Task.h"
 #include "Arduino.h"
@@ -8,12 +8,12 @@
 #include "../devices/UltrasonicSensor.h"
 #include "../devices/LcdDisplay.h"
 #include "../devices/ServoMotor.h"
-#include "../model/WaterState.h"
+#include "WaterLevelTask.h"
 #include "../devices/Button.h"
 #include "../devices/Potentiometer.h"
 
 #define W1 100
-#define W2 50
+#define W2 30
 #define PEA 500
 #define PEP 1000
 #define PEN 1500
@@ -24,11 +24,12 @@ typedef enum {NORMAL, PRE_ALARM, ALARM, MANUAL} State;
 extern float currDistance;
 extern int valveAngle;
 extern State state;
+extern bool isPCControlled;
 // extern LightingState lightingState;
 
-class WaterTask2: public Task {
+class WaterTask: public Task {
 	public:
-	WaterTask2(int pinLedB, int pinLedC, int pinTrigger, int pinEcho, int pinServoMotor/*, int pinButton, int pinPotentiometer*/);
+	WaterTask(int pinLedB, int pinLedC, int pinServoMotor, Task* sonar);
 	void init(int period);
 	void tick();
 	static float getCurrDistance();
@@ -39,7 +40,8 @@ class WaterTask2: public Task {
 	UltrasonicSensor* sensor;
 	LcdDisplay* lcd;
 	ServoMotor* servoMotor;
-	WaterState* waterState;
+	WaterLevelTask* waterState;
+	Task* sonar;
 	//Button* button;
 	//Potentiometer* potentiometer;
 };
