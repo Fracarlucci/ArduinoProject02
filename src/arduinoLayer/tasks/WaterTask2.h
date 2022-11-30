@@ -24,6 +24,7 @@ typedef enum {NORMAL, PRE_ALARM, ALARM, MANUAL} State;
 extern float currDistance;
 extern int valveAngle;
 extern State state;
+extern bool isPCControlled;
 // extern LightingState lightingState;
 
 class WaterTask2: public Task {

@@ -3,6 +3,7 @@
 int valveAngle;
 State state;
 float currDistance = 0;
+bool isPCControlled = false;
 
 WaterTask2::WaterTask2(int pinLedB, int pinLedC, int pinTrigger, int pinEcho, int pinServoMotor/*, int pinButton, int pinPotentiometer*/, Task* sonar) {
 	this->ledB = new Led(pinLedB);
@@ -67,7 +68,8 @@ void WaterTask2::tick() {
 				ledC->switchOn();
 				lightingState = OFF;
 				if(currDistance > WMAX) {
-					valveAngle = map((long)currDistance, W2, WMAX, 0, 180);
+					valveAngle = !isPCControlled ? map((long)currDistance, W2, WMAX, 0, 180) : valveAngle;
+					isPCControlled = false;
 					servoMotor->move(valveAngle);
 				}
 			}

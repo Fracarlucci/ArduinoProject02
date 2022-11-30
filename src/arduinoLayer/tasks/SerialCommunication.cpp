@@ -13,4 +13,11 @@ void SerialCommunication::tick(){
   Serial.println("Bridge: "+ String(state));
   Serial.println("SmartLight: "+ String(lightingState));
   Serial.println("Graph: " + String(millis()) + ", " + String(currDistance));
+
+  //Slider Input
+  String inputData = Serial.readString();
+  if(inputData.startsWith("Slider:")) {
+    int valveAngle = inputData.substring(inputData.lastIndexOf(":") + 1, inputData.length()).toInt();
+    isPCControlled = true;
+  }
 }

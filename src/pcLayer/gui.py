@@ -1,6 +1,7 @@
 import tkinter as tk
 import serial 
 import threading
+from tkinter import Scale, HORIZONTAL
 
 import matplotlib
 matplotlib.use("TkAgg")
@@ -41,6 +42,16 @@ tk.Label(root, textvariable=smartLight).pack()
 tk.Label(root, text="Bridge State:" ).pack()
 bridgeState = tk.StringVar()
 tk.Label(root, textvariable=bridgeState).pack()
+
+#Slider 
+
+tk.Label(root, text="Open Valve:" ).pack()
+
+def onSliderChange(event):
+     ArduinoSerial.write(("Slider: " + str(slider.get())).encode("utf-8"))
+
+slider = Scale(root, from_=0, to=180, command=onSliderChange, orient=HORIZONTAL)
+slider.pack()
 
 #Realtime graph
 f = Figure(figsize=(5,4), dpi=100)
