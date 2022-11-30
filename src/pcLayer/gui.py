@@ -1,7 +1,6 @@
 import tkinter as tk
 import serial 
 import threading
-from tkinter import Scale, HORIZONTAL
 
 import matplotlib
 matplotlib.use("TkAgg")
@@ -17,6 +16,7 @@ lightingState = ['ON', 'OFF', 'SHOTDOWN']
 
 #Create the tkinter master object
 root = tk.Tk()
+root.title('Smart Bridge')
 
 #Init serial comm
 ArduinoSerial = serial.Serial('COM3', 9600) 
